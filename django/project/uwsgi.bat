@@ -1,0 +1,1 @@
+uwsgi --max-requests 5000 --socket 0.0.0.0:8000 --processes 4 --threads 2 --module project.wsgi:application

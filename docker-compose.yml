@@ -1,0 +1,80 @@
+version: '3'
+
+services:
+    django:
+        # docker run --rm -it -p 8000:8000 django_simple /bin/sh
+        # docker run --rm -it -p 8000:8000 django_simple bash        
+        
+        build:
+            context: django
+        container_name: django_simple
+        # command: python manage.py runserver 0.0.0.0:8000
+        command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
+        image: django_simple
+        # volumes:
+        #     - ./app:/app
+        ports:
+            - "8000:8000"
+    # django_bjoern:
+    #     container_name: django_bjoern        
+    #     command: python wsgi_bjoern.py
+    #     image: django_simple
+    #     ports:
+    #         - "8000:8000"
+    fastapi:
+        build:
+            context: fastapi
+        container_name: fastapi_guvicorn        
+        command: gunicorn main:app -w 8 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8008
+        image: fastapi_guvicorn
+        ports:
+            - "8008:8008"
+    # hunt:
+    #     # docker run --rm -it -p 8000:8000 hunt_project bash
+
+    #     build:
+    #         context: hunt        
+    #     container_name: hunt_app        
+    #     command: bash
+    #     # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
+    #     # command: bash -c "dub run -v"
+    #     image: hunt_project
+    #     ports:
+    #         - "9001:8080"
+    # vibe_d:
+    #     # docker run --rm -it -p 8000:8000 vibe_d_app bash
+
+    #     build:
+    #         context: vibed        
+    #     container_name: vibe_d_app        
+    #     command: bash
+    #     # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
+    #     # command: bash -c "dub run -v"
+    #     image: vibe_d_app
+    #     ports:
+    #         - "9000:8080"
+    express:
+        build:
+            context: express
+        container_name: express_app        
+        # command: node index.js
+        command: node cluster.js
+        image: express_project
+        ports:
+            - "9000:3000"
+    # fastify_cluster:
+    #     build:
+    #         context: fastify-cluster
+    #     container_name: fastify_cluster_app        
+    #     command: npm start
+    #     image: fastify_cluster_project
+    #     ports:
+    #         - "9001:7300"       
+    fastify:
+        build:
+            context: fastify
+        container_name: fastify_app        
+        command: npm run begin
+        image: fastify_project
+        ports:
+            - "9001:3000"        
