@@ -44,14 +44,15 @@ The following ports are configured by default:
 
 Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
 
-Metric         | Django        | Fastapi       | Express       |  Fastify *    |
-:------------- | ------------- |:-------------:| -------------:| -------------:|
-Request per sec| 1514 requests | 1216 requests | 1586 requests | 1750 requests |
+Metric         | Django        | Fastapi       | Express        |  Fastify *     |
+:------------- | ------------- |:-------------:| :-------------:| :-------------:|
+Request per sec| 1514 requests | 1216 requests |  1586 requests |  1750 requests |
 CPU usage (max)|          |||105%|
 Memory usage   |
+pids           |
 errors         |
 
-* w/o clusterisation (clustering using did not have an effect)
+* w/o clusterisation (manual clusterisation did not have any effect (expect the hugest memory allocation) because of (I suppose) clasterisation integrated in framework)
 
 ### Django
 
