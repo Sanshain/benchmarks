@@ -61,7 +61,7 @@ errors                 |      0        |       1       |       0 **     |       
 
 FX-8350 && 8Gb memory is available
 
-## Prepareing: 
+#### Prepareing: 
 
 - Apply `npm i` inside *Express* and *Fastify* directories
 - Apply `pipenv shell` inside *Django* and *Fastapi* directories
