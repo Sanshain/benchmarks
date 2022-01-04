@@ -74,8 +74,8 @@ Init scripts:
 
 Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     | Fastify        | 
 :-------------         |:-----------------:|:----------------------:| :-------------:| :-------------:|
-Request per sec        | 1077 requests     |    568 requests       |  2300 requests |  2300 requests  |
-longest request        |      58 ms        |      113ms            |     43 ms      |      52 ms      |
+Request per sec        | 1077 requests     |    568 (642) requests  |  2300 requests |  2300 requests  |
+longest request        |      58 ms        |      113ms             |     43 ms      |      52 ms      |
 
 
 Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
