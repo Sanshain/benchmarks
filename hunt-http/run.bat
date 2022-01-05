@@ -1,1 +1,0 @@
-dub --compiler=ldc2

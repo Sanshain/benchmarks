@@ -1,5 +1,6 @@
 netcore/
 hunt/
-vibed/
+# vibed/
+hunt-http/
 
 node_modules/

@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/vibe_d
+vibe_d.so
+vibe_d.dylib
+vibe_d.dll
+vibe_d.a
+vibe_d.lib
+vibe_d-test-*
+*.exe
+*.o
+*.obj
+*.lst
