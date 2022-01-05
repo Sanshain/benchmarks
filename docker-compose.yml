@@ -9,7 +9,9 @@ services:
             context: django
         container_name: django_simple
         # command: python manage.py runserver 0.0.0.0:8000
+        # command: waitress-serve --listen=*:8000 --threads=8 project.wsgi:application
         command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
+        # command: gunicorn -w 8 -b 0.0.0.0:8000 project.asgi:application -k uvicorn.workers.UvicornWorker        
         image: django_simple
         # volumes:
         #     - ./app:/app
@@ -51,18 +53,19 @@ services:
     #     image: hunt_project
     #     ports:
     #         - "9001:8080"
-    vibe_d:
-        # docker run --rm -it -p 8000:8000 vibe_d_app bash
+    # vibe_d:
+    #     # docker run --rm -it -p 8000:8000 vibe_d_app bash
 
-        build:
-            context: vibed        
-        container_name: vibe_d_app        
-        command: bash
-        # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
-        # command: bash -c "dub run -v"
-        image: vibe_d_app
-        ports:
-            - "15672:8080"
+    #     build:
+    #         context: vibed        
+    #     container_name: vibe_d_app  
+    #     # command: dub run --compiler=ldc2 --build=release      
+    #     command: dub run --build=release 
+    #     # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
+    #     # command: bash -c "dub run -v"
+    #     image: vibe_d_app
+    #     ports:
+    #         - "9000:8088"
     express:
         build:
             context: express
@@ -88,3 +91,12 @@ services:
         image: fastify_project
         ports:
             - "9001:3000"        
+
+    # wrk:        
+    #     image: skandyla/wrk
+    #     container_name: wrk_test
+    #     # command: bash
+    #     stdin_open: true
+    #     tty: true        
+    #     ports:
+    #         - "8888:8888"

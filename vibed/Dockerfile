@@ -11,9 +11,9 @@ RUN apt install -y git
 
 COPY . .
 
-RUN dub
+# RUN dub
 # RUN dub run -v
-
+RUN dub build --compiler=ldc2 --build=release
 
 
 # github.com/wilzbach/dlang-docker
