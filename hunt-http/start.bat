@@ -1,0 +1,1 @@
+dub --compiler=gdc

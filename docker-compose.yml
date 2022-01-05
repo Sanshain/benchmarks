@@ -29,6 +29,16 @@ services:
         image: fastapi_guvicorn
         ports:
             - "8008:8008"
+    # hunt_http:
+    #     # docker run --rm -it -p 8000:8000 hunt-http bash
+
+    #     build:
+    #         context: hunt-http    
+    #     container_name: hunt_app                
+    #     command: bash -c "dub run -v"
+    #     image: hunt_project
+    #     ports:
+    #         - "15672:8080"            
     # hunt:
     #     # docker run --rm -it -p 8000:8000 hunt_project bash
 
@@ -41,18 +51,18 @@ services:
     #     image: hunt_project
     #     ports:
     #         - "9001:8080"
-    # vibe_d:
-    #     # docker run --rm -it -p 8000:8000 vibe_d_app bash
+    vibe_d:
+        # docker run --rm -it -p 8000:8000 vibe_d_app bash
 
-    #     build:
-    #         context: vibed        
-    #     container_name: vibe_d_app        
-    #     command: bash
-    #     # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
-    #     # command: bash -c "dub run -v"
-    #     image: vibe_d_app
-    #     ports:
-    #         - "9000:8080"
+        build:
+            context: vibed        
+        container_name: vibe_d_app        
+        command: bash
+        # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
+        # command: bash -c "dub run -v"
+        image: vibe_d_app
+        ports:
+            - "15672:8080"
     express:
         build:
             context: express

@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/hunt-http
+hunt-http.so
+hunt-http.dylib
+hunt-http.dll
+hunt-http.a
+hunt-http.lib
+hunt-http-test-*
+*.exe
+*.o
+*.obj
+*.lst

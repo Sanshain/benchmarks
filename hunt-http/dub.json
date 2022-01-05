@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"User"
+	],
+	"copyright": "Copyright © 2022, User",
+	"dependencies": {
+		"hunt-http": "~>0.8.1"
+	},
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "hunt_app"
+}
