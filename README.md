@@ -100,21 +100,22 @@ Init scripts:
 
 #### Results w/o keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     | Fastify        |    ASP NET    |    IIS        |    vibeD      |
-:-------------         |:-----------------:|:----------------------:| :-------------:| :-------------:|:-------------:|:-------------:|:-------------:|
-Request per sec        | 1077 requests     |    568 (642) requests  |  2300 requests |  2300 requests | 2205 requests | 2416 requests | 2426 requests |
-longest request        |      58 ms        |      113ms             |     43 ms      |      52 ms     |    42 ms      |    42 ms      |    41 ms      |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     |    ASP NET    | Fastify        |    IIS        |    vibeD      |
+:-------------         |:-----------------:|:----------------------:| :-------------:|:-------------:| :-------------:|:-------------:|:-------------:|
+Request per sec        | 1077 requests     |    568 (642) requests  |  2300 requests | 2205 requests |  2300 requests | 2416 requests | 2426 requests |
+longest request        |      58 ms        |      113ms             |     43 ms      |    42 ms      |      52 ms     |    42 ms      |    41 ms      |
 
 
 #### Results with keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) | Fastify  (w c) |    ASP NET    |    IIS        |      vibeD    |
-:-------------         |:-----------------:|:----------------------:| :-------------:| :-------------:|:-------------:|:-------------:|:-------------:|
-Request per sec        |        -//-       |    -//-                | 4132 requests  |  5350 requests | 4572 requests | 5000 requests | 5300 requests |
-longest request        |                   |                        |      45 ms     |      45 ms     |    53 ms      |    41 ms      |    41 ms      |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) |    ASP NET ** | Fastify (w c)* |    IIS        |      vibeD    |
+:-------------         |:-----------------:|:----------------------:| :-------------:|:-------------:| :-------------:|:-------------:|:-------------:|
+Request per sec        |        -//-       |    -//-                | 4132 requests  | 4572 requests |  5350 requests | 5000 requests | 5300 requests |
+longest request        |                   |                        |      45 ms     |    53 ms      |      45 ms     |    41 ms      |    41 ms      |
 
 
-Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
+* Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
+* ASP NET consumes about 150 MB of RAM in dev mode. I didn't check it after deployment, but it's unlikely anymore
 
 ---- 
 
