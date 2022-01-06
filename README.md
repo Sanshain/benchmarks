@@ -69,7 +69,7 @@ errors                 |      0        |       0        |        0       |      
 **Footnotes:**
 * w/o clusterisation (manual clusterisation did not have any effect (expect the hugest memory allocation) because of (I suppose) clusterisation integrated in framework)
 * w/o clusterisation was at less one error
-* Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably)
+* Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably and 55 processes)
 
 #### Tests with wrk:
 
