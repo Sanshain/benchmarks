@@ -21,3 +21,4 @@ netcore/
 Release/
 Debug/
 packages/
+aspnet/**/Scripts/
