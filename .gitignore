@@ -1,13 +1,22 @@
-netcore/
-hunt/
+
+# dlang:
+
 # vibed/
+hunt/
 hunt-http/
+
+
+
+# node:
+node_modules/
+
+# fastify_cluster:
 ..git/
 
-node_modules/
 
 
 # asp.net:
+netcore/
 
 Release/
 Debug/
