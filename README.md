@@ -107,10 +107,10 @@ longest request        |      58 ms        |      113ms             |     43 ms 
 
 #### Results with keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     | Fastify  (w c) |    net core   |      vibeD    |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) | Fastify  (w c) |    net core   |      vibeD    |
 :-------------         |:-----------------:|:----------------------:| :-------------:| :-------------:|:-------------:|:-------------:|
-Request per sec        |        -//-       |    -//-                |   -//-         |  5300 requests | 5000 requests | 5300 requests |
-longest request        |                   |                        |                |      45 ms     |    41 ms      |    41 ms      |
+Request per sec        |        -//-       |    -//-                | 4132 requests  |  5350 requests | 5000 requests | 5300 requests |
+longest request        |                   |                        |      45 ms     |      45 ms     |    41 ms      |    41 ms      |
 
 
 Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
