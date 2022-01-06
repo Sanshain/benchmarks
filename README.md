@@ -80,9 +80,9 @@ Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 35000
 CPU usage (max)        |     390%      |        380%    |       380%     |      425%      |       425%     |      425%      |
 Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     120Mb      |      75 Mb     |       420 Mb   |
 
-### Windows
+### Windows 
 
-FX-8350 && 8Gb memory is available
+FX-8350 && 8Gb memory is available (x64)
 
 #### Prepareing: 
 
@@ -96,24 +96,26 @@ Init scripts:
 - **Django** *:8000*:  `waitress-serve --listen=*:8000 --threads=8 project.wsgi:application` from *project* catalog
 - **Fastapi** *:8000*: `uvicorn-run.bat`
 - **VibeD** *:8088*: `run.bat`
+- **asp net** : *depends on your iis settings*
 
 #### Results w/o keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     | Fastify        |    net core   |    vibeD    |
-:-------------         |:-----------------:|:----------------------:| :-------------:| :-------------:|:-------------:|:-------------:|
-Request per sec        | 1077 requests     |    568 (642) requests  |  2300 requests |  2300 requests | 2416 requests | 2426 requests |
-longest request        |      58 ms        |      113ms             |     43 ms      |      52 ms     |    42 ms      |    41 ms      |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     |    ASP NET    | Fastify        |    IIS        |    vibeD      |
+:-------------         |:-----------------:|:----------------------:| :-------------:|:-------------:| :-------------:|:-------------:|:-------------:|
+Request per sec        | 1077 requests     |    568 (642) requests  |  2300 requests | 2205 requests |  2300 requests | 2416 requests | 2426 requests |
+longest request        |      58 ms        |      113ms             |     43 ms      |    42 ms      |      52 ms     |    42 ms      |    41 ms      |
 
 
 #### Results with keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |    Express     | Fastify  (w c) |    net core   |      vibeD    |
-:-------------         |:-----------------:|:----------------------:| :-------------:| :-------------:|:-------------:|:-------------:|
-Request per sec        |        -//-       |    -//-                |   -//-         |  5300 requests | 5000 requests | 5300 requests |
-longest request        |                   |                        |                |      45 ms     |    41 ms      |    41 ms      |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) |    ASP NET ** | Fastify (w c)* |    IIS        |      vibeD    |
+:-------------         |:-----------------:|:----------------------:| :-------------:|:-------------:| :-------------:|:-------------:|:-------------:|
+Request per sec        |        -//-       |    -//-                | 4132 requests  | 4572 requests |  5350 requests | 5000 requests | 5300 requests |
+longest request        |                   |                        |      45 ms     |    53 ms      |      45 ms     |    41 ms      |    41 ms      |
 
 
-Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
+* Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
+* ASP NET consumes about 150 MB of RAM in dev mode. I didn't check it after deployment, but it's unlikely anymore
 
 ---- 
 
