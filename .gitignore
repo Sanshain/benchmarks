@@ -5,3 +5,10 @@ hunt-http/
 ..git/
 
 node_modules/
+
+
+# asp.net:
+
+Release/
+Debug/
+packages/

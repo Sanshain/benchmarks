@@ -71,7 +71,9 @@ services:
             context: express
         container_name: express_app        
         # command: node index.js
-        command: node cluster.js
+        # command: pm2 start index.js -i max
+        command: pm2-runtime start index.js -i max
+        # command: node cluster.js
         image: express_project
         ports:
             - "9000:3000"
