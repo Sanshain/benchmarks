@@ -69,17 +69,20 @@ errors                 |      0        |       0        |        0       |      
 **Footnotes:**
 * w/o clusterisation (manual clusterisation did not have any effect (expect the hugest memory allocation) because of (I suppose) clusterisation integrated in framework)
 * w/o clusterisation was at less one error
-* Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably)
+* Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably and 55 processes)
 
 #### Tests with wrk:
 
 `wrk -t4 -c100 -d3s <url>`
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)  |Fastify (w/o c) |  Fastify (w c) |
+Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)* |Fastify (w/o c) |  Fastify (w c) |
 :-------------         |:-------------:|:--------------:|:--------------:|:-------------:| :-------------:| :-------------:| :-------------:|
 Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 4100 requests | 35000 requests | 10500 requests | 30000 requests |
 CPU usage (max)        |     390%      |        380%    |       380%     |     390%      |      425%      |       425%     |      425%      |
 Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     235Mb     |     120Mb      |      75 Mb     |       420 Mb   |
+
+* Results with pm2 is not included, because its showed worse results on loadtest than on manual clusterisation tuning (9000 r/sec)
+
 
 ### Windows 
 
@@ -124,3 +127,7 @@ longest request        |                   |                        |      45 ms
 
 - from [the-benchmarker](https://github.com/the-benchmarker/web-frameworks)
 - from [techempower](https://www.techempower.com/benchmarks/)
+
+## Notes:
+
+- **fastify_cluster** container was based on [this one](https://github.com/joseluisq/fastify-cluster-example). Thanks for [joseluisq](https://github.com/joseluisq)
