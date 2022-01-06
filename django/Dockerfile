@@ -17,6 +17,7 @@ RUN python -m pip install --upgrade pip
 RUN apk add libev-dev
 RUN apk add libwebp-dev 
 RUN pip install bjoern 
+RUN pip install -U meinheld 
 
 # RUN pip install uWSGI 
 

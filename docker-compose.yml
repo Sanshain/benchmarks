@@ -9,9 +9,11 @@ services:
             context: django
         container_name: django_simple
         # command: python manage.py runserver 0.0.0.0:8000
-        # command: waitress-serve --listen=*:8000 --threads=8 project.wsgi:application
-        command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
+        # command: waitress-serve --listen=*:8000 --threads=8 project.wsgi:application        
         # command: gunicorn -w 8 -b 0.0.0.0:8000 project.asgi:application -k uvicorn.workers.UvicornWorker        
+        
+        # command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
+        command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
         image: django_simple
         # volumes:
         #     - ./app:/app
@@ -27,7 +29,7 @@ services:
         build:
             context: fastapi
         container_name: fastapi_guvicorn        
-        command: gunicorn main:app -w 8 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8008
+        command: gunicorn main:app -w 8 --reuse-port --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8008
         image: fastapi_guvicorn
         ports:
             - "8008:8008"
