@@ -127,3 +127,7 @@ longest request        |                   |                        |      45 ms
 
 - from [the-benchmarker](https://github.com/the-benchmarker/web-frameworks)
 - from [techempower](https://www.techempower.com/benchmarks/)
+
+## Notes:
+
+- **fastify_cluster** container was based on [this one](https://github.com/joseluisq/fastify-cluster-example). Thanks for [joseluisq](https://github.com/joseluisq)
