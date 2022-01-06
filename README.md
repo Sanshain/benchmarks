@@ -46,39 +46,40 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 
 #### Tests w/o keepalive:
 
-Metric                 | Django        | Fastapi (sync)      | Fastapi (async)     | Express (w c)  |  Fastify *     |  Fastify (w c) |
-:-------------         |:-------------:|:-------------------:|:-------------------:| :-------------:| :-------------:| :-------------:|
-Requests per sec       | 1514 requests | 1216 requests       | 1622 requests       |  1586 requests |  1750 requests |                |
-CPU usage (motionless) |     0.05%     |      2%             |        2%           |       0%       |       0%       |                |
-CPU usage (max)        |     390%      |      380%           |      353%           |      260%      |       105%     |                |
-Memory usage           |     220Mb     |      180Mb          |      175Mb          |     105Mb      |      75 Mb     |                |
-pids                   |      9        |      9-106          |       9             |      35        |       23       |                |
-errors                 |      0        |       1             |       1             |       0 **     |        0       |                |
+Metric                 | Django        | Fastapi (sync)      | Fastapi (async)     | Django (meinheld) | Express (w c)  |  Fastify *     |  Fastify (w c) |
+:-------------         |:-------------:|:-------------------:|:-------------------:|:----------------:| :-------------:| :-------------:| :-------------:|
+Requests per sec       | 1514 requests | 1216 requests       | 1622 requests       |  1629 requests   |  1586 requests |  1750 requests |                |
+CPU usage (motionless) |     0.05%     |      2%             |        2%           |      0.15%       |       0%       |       0%       |                |
+CPU usage (max)        |     390%      |      380%           |      353%           |      335%        |      260%      |       105%     |                |
+Memory usage           |     220Mb     |      180Mb          |      175Mb          |      335Mb       |     105Mb      |      75 Mb     |                |
+pids                   |      9        |      9-106          |       9             |       9          |      35        |       23       |                |
+errors                 |      0        |       1             |       1             |       0          |       0 **     |        0       |                |
 
 #### Tests with keepalive:
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Express (w c)  |Fastify (w/o c) |  Fastify (w c) |
-:-------------         |:-------------:|:--------------:|:--------------:| :-------------:| :-------------:| :-------------:|
-Requests per sec       | 1514 requests | 2114 requests  |  3569 requests |  4500 requests |  3500 requests |  4500 requests |
-CPU usage (motionless) |     0.05%     |        2%      |        2%      |  0%            | 0%             |        0%      |
-CPU usage (max)        |     390%      |       405%     |       380%     |      195%      |       105%     |      212%      |
-Memory usage           |     220Mb     |      175Mb     |      180Mb     |      60Mb      |      75 Mb     |       477 Mb   |
-pids                   |      9        |       61       |          9     |       9        |      35        |       47       |
-errors                 |      0        |       0        |        0       |       0        |        0       |        0       |
+Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django (meinheld)|Express (w c)*** |Fastify (w/o c) |  Fastify (w c) |
+:-------------         |:-------------:|:--------------:|:--------------:|:----------------:| :--------------:| :-------------:| :-------------:|
+Requests per sec       | 1514 requests | 2114 requests  |  3569 requests |  2884 requests   |  4500 requests  |  3500 requests |  4500 requests |
+CPU usage (motionless) |     0.05%     |        2%      |        2%      |      0.15%       |  0%             | 0%             |        0%      |
+CPU usage (max)        |     390%      |       405%     |       380%     |      400%        |      195%       |       105%     |      212%      |
+Memory usage           |     220Mb     |      175Mb     |      180Mb     |      335Mb       |      60Mb       |      75 Mb     |       477 Mb   |
+pids                   |      9        |       61       |          9     |       9          |       9         |      35        |       47       |
+errors                 |      0        |       0        |        0       |       0          |       0         |        0       |        0       |
 
 **Footnotes:**
 * w/o clusterisation (manual clusterisation did not have any effect (expect the hugest memory allocation) because of (I suppose) clusterisation integrated in framework)
 * w/o clusterisation was at less one error
+* Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably)
 
 #### Tests with wrk:
 
 `wrk -t4 -c100 -d3s <url>`
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Express (w c)  |Fastify (w/o c) |  Fastify (w c) |
-:-------------         |:-------------:|:--------------:|:--------------:| :-------------:| :-------------:| :-------------:|
-Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 35000 requests | 10500 requests | 30000 requests |
-CPU usage (max)        |     390%      |        380%    |       380%     |      425%      |       425%     |      425%      |
-Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     120Mb      |      75 Mb     |       420 Mb   |
+Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)  |Fastify (w/o c) |  Fastify (w c) |
+:-------------         |:-------------:|:--------------:|:--------------:|:-------------:| :-------------:| :-------------:| :-------------:|
+Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 4100 requests | 35000 requests | 10500 requests | 30000 requests |
+CPU usage (max)        |     390%      |        380%    |       380%     |     390%      |      425%      |       425%     |      425%      |
+Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     235Mb     |     120Mb      |      75 Mb     |       420 Mb   |
 
 ### Windows 
 
