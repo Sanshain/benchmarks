@@ -46,7 +46,7 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 
 #### Tests w/o keepalive:
 
-Metric                 | Django        | Fastapi (sync)      | Fastapi (async)     | Django(meinheld) | Express (w c)  |  Fastify *     |  Fastify (w c) |
+Metric                 | Django        | Fastapi (sync)      | Fastapi (async)     | Django (meinheld) | Express (w c)  |  Fastify *     |  Fastify (w c) |
 :-------------         |:-------------:|:-------------------:|:-------------------:|:----------------:| :-------------:| :-------------:| :-------------:|
 Requests per sec       | 1514 requests | 1216 requests       | 1622 requests       |  1629 requests   |  1586 requests |  1750 requests |                |
 CPU usage (motionless) |     0.05%     |      2%             |        2%           |      0.15%       |       0%       |       0%       |                |
@@ -57,7 +57,7 @@ errors                 |      0        |       1             |       1          
 
 #### Tests with keepalive:
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django(meinheld) |Express (w c)*** |Fastify (w/o c) |  Fastify (w c) |
+Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django (meinheld)|Express (w c)*** |Fastify (w/o c) |  Fastify (w c) |
 :-------------         |:-------------:|:--------------:|:--------------:|:----------------:| :--------------:| :-------------:| :-------------:|
 Requests per sec       | 1514 requests | 2114 requests  |  3569 requests |  2884 requests   |  4500 requests  |  3500 requests |  4500 requests |
 CPU usage (motionless) |     0.05%     |        2%      |        2%      |      0.15%       |  0%             | 0%             |        0%      |
