@@ -21,4 +21,4 @@ netcore/
 Release/
 Debug/
 packages/
-aspnet/**/Scripts/**.js
+aspnet/**/Scripts/***.js
