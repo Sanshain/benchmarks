@@ -1,0 +1,1 @@
+uvicorn project.asgi:application --workers=8 --port 8000
