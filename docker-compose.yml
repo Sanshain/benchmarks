@@ -1,24 +1,49 @@
 version: '3'
 
 services:
-    django:
+    # django:
+    #     # docker run --rm -it -p 8000:8000 django_simple /bin/sh
+    #     # docker run --rm -it -p 8000:8000 django_simple bash        
+        
+    #     build:
+    #         context: django
+    #     container_name: django_simple
+    #     # command: python manage.py runserver 0.0.0.0:8000
+    #     # command: waitress-serve --listen=*:8000 --threads=8 project.wsgi:application        
+    #     # command: gunicorn -w 8 -b 0.0.0.0:8000 project.asgi:application -k uvicorn.workers.UvicornWorker        
+        
+    #     # command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
+    #     command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+    #     image: django_simple
+    #     # volumes:
+    #     #     - ./app:/app
+    #     ports:
+    #         - "8000:8000"
+    redis:
+        image: redis:6.0.16
+        container_name: redis_jar
+        ports:
+            - "6379:6379"      
+    django_channels:
         # docker run --rm -it -p 8000:8000 django_simple /bin/sh
         # docker run --rm -it -p 8000:8000 django_simple bash        
         
         build:
-            context: django
-        container_name: django_simple
-        # command: python manage.py runserver 0.0.0.0:8000
-        # command: waitress-serve --listen=*:8000 --threads=8 project.wsgi:application        
-        # command: gunicorn -w 8 -b 0.0.0.0:8000 project.asgi:application -k uvicorn.workers.UvicornWorker        
-        
-        # command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
-        command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
-        image: django_simple
+            context: django_channels
+        container_name: django_channels_jar
+        # command: python manage.py runserver 0.0.0.0:8000        
+
+        command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+        # command: uvicorn --workers=8 --port 8000 --host 0.0.0.0 prototype_project.asgi:application
+        # command: uvicorn --port 8000 --host 0.0.0.0 prototype_project.asgi:application
+        # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload prototype_project.asgi:application -k uvicorn.workers.UvicornWorker
+
+        # command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        image: django_channels_image
         # volumes:
         #     - ./app:/app
         ports:
-            - "8000:8000"
+            - "8000:8000"            
     # django_bjoern:
     #     container_name: django_bjoern        
     #     command: python wsgi_bjoern.py
