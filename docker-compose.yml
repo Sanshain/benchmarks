@@ -23,7 +23,7 @@ services:
         image: redis:6.0.16
         container_name: redis_jar
         ports:
-            - "6379:6379"      
+            - "6379:6379"
     django_channels:
         # docker run --rm -it -p 8000:8000 django_simple /bin/sh
         # docker run --rm -it -p 8000:8000 django_simple bash        
@@ -43,7 +43,65 @@ services:
         # volumes:
         #     - ./app:/app
         ports:
-            - "8000:8000"            
+            - "8000:8000"    
+        # service deployment
+        depends_on:
+            - redis
+        deploy:
+            mode: replicated
+            replicas: 2  
+            
+    # django_channels_1:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis   
+    # django_channels_2:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis  
+    # django_channels_3:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis      
+    # django_channels_4:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis   
+    # django_channels_5:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis  
+    # django_channels_6:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis   
+    # django_channels_7:
+    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+    #     image: django_channels_image
+    #     depends_on:
+    #         - redis                                                         
+    # nginx:        
+    #     # build:
+    #     #     context: django_channels    
+    #     # image: nginx_image
+    #     image: nginx:latest
+    #     container_name: nginx_balancer
+    #     working_dir: /etc/nginx/conf.d
+    #     command: bash
+    #     stdin_open: true
+    #     tty: true
+    #     volumes:
+    #         - /.pentest/nginx:/etc/nginx/conf.d
+    #         # - ./nginx:/etc/nginx/conf.d
+    #         # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf   
+    #     ports:
+    #         - "8000:8000"
     # django_bjoern:
     #     container_name: django_bjoern        
     #     command: python wsgi_bjoern.py
@@ -129,3 +187,4 @@ services:
     #     tty: true        
     #     ports:
     #         - "8888:8888"
+
