@@ -1,32 +1,20 @@
-FROM debian:bullseye-slim
+FROM python:3.8-slim
 
-EXPOSE 6379
-
-# add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN groupadd -r -g 999 redis && useradd -r -g redis -u 999 redis
-
-
-RUN apt-get update; \	
-	apt-get install redis -y; \
-	apt-get install host -y
+RUN apt-get update; \
+	pip install aioredis; \
+	pip install aioredis_cluster; \
+	pip install redis-py-cluster;
 
 
-COPY ./config/cluster_node/redis.conf /app/redis.conf
-COPY ./start3_nodes.sh /app/start3_nodes.sh
-COPY ./start6_nodes.sh /app/start6_nodes.sh
-
-
-# COPY ./config/cluster/systemd/cluster.service /run/systemd/system/
-# COPY ./start.sh /app
+COPY ./aioredis_cluster_test.py /app/aioredis_cluster_test.py
+COPY ./aioredis_tests.py /app/aioredis_tests.py
+COPY ./app.py /app/app.py
+COPY ./utils.py /app/utils.py
 
 
 WORKDIR /app
 
-# development:
-
-# RUN apt-get install procps -y; 
-
-CMD redis-server /app/redis.conf
+CMD sleep infinity
 
 
 # CMD ["yes", "|", "redis-server", "/app/node_1/redis.conf"]

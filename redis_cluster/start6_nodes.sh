@@ -7,7 +7,7 @@ sleep 5
 
 declare -a hosts
 
-for number in 0 1
+for number in 0 1 2 3 4
 do
     # echo $number
     hosts[$number]=`host redis_node_$number | grep -oP '\d+\.\d+\.\d+\.\d+'`
@@ -21,7 +21,10 @@ done
 
 # yes yes | redis-cli --cluster create $redis_node_0:6379 $redis_node_1:6379 $redis_cluster:6379
 # yes yes | redis-cli --cluster create ${hosts[0]}:6379 ${hosts[1]}:6379 $redis_cluster:6379
-yes yes | redis-cli --cluster create ${hosts[0]}:6379 ${hosts[1]}:6379 127.0.0.1:6379
+
+yes yes | redis-cli --cluster create ${hosts[0]}:6379 ${hosts[1]}:6379 ${hosts[2]}:6379 ${hosts[3]}:6379 ${hosts[4]}:6379 127.0.0.1:6379
+
+# yes yes | redis-cli --cluster create ${hosts[0]}:6379 ${hosts[1]}:6379 ${hosts[2]}:6379 ${hosts[3]}:6379 ${hosts[4]}:6379 127.0.0.1:6379 --cluster-replicas 1
 
 
 # yes yes | redis-cli --cluster create redis_node_0:7000 redis_node_1:7001 redis_cluster:7002

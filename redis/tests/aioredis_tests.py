@@ -3,11 +3,14 @@ import sys
 
 import aioredis
 
-from utils import async_benchmark, default_times, benchmark
+from utils import async_benchmark, default_times, benchmark, get_argv_dict
+
+argv = get_argv_dict()
+print(argv)
 
 loop = asyncio.get_event_loop()
-url = '192.168.99.101'
-port = 6379
+url = argv.get('-h', '192.168.99.101')
+port = argv.get('-p', 6379)
 
 
 # status = await connection.execute('SET', 'p', 5)
@@ -29,6 +32,7 @@ async def test(n=default_times):
         )
         if value and value % 100 == 0:
             print(value)
+    connection.close()
 
 
 @benchmark
@@ -40,13 +44,16 @@ def main():
             loop.run_until_complete(test(n))
     else:
         coroutines = [
-            test(1000) for i in range(10)  # 1920 req/sec
+            test(argv.get('-j', 1000)) for i in range(argv.get('-i', 10))  # 1920 req/sec
             # test(n=3333),
             # test(n=3333),
             # test(n=3334),
         ]
         loop.run_until_complete(
-            asyncio.wait(coroutines)        # 4250
+            asyncio.wait(coroutines)        # 4250 req/sec from linux
+                                            # 1553 req/sec from linux (10x1000)
+                                            # 1400 req/sec from linux (1x5000)
+                                            # 1889 req/sec from linux (20x500)
             # test()                        # 1250 req/sec
         )
 

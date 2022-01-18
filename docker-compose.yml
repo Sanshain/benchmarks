@@ -233,6 +233,7 @@ services:
     #         - "7000:7000"
 
     redis_node_0:
+        &base_redis
         image: redis_cluster_image        
         build:
             context: redis_cluster
@@ -240,28 +241,48 @@ services:
             - "7000:6379"  
 
     redis_node_1:
-        image: redis_cluster_image
-        build:
-            context: redis_cluster
+        <<: *base_redis
         ports:
             - "7001:6379"
             
+    redis_node_2:
+        <<: *base_redis
+        ports:
+            - "7002:6379"  
+
+    redis_node_3:
+        <<: *base_redis
+        ports:
+            - "7003:6379"
+
+    redis_node_4:
+        <<: *base_redis
+        ports:
+            - "7004:6379"              
+
     redis_cluster:
         # image: bitnami/redis-cluster
         image: redis_cluster_image
         build:
             context: redis_cluster
-        command: bash -c "./start.sh && sleep infinity"
+        # command: bash -c "./start3_nodes.sh && sleep infinity"
+        command: bash -c "./start6_nodes.sh && sleep infinity"
         # command: bash -c "sleep infinity"
         ports:
-            - "7002:6379"    
+            - "7005:6379"    
         depends_on:
             - redis_node_0
             - redis_node_1                   
+            - redis_node_2                   
+            - redis_node_3                   
+            - redis_node_4                   
 
     redis_tests:
-        image: python:3.8-slim
-
+        build:
+            context: redis/tests
+        image: redis_tests_image
+        container_name: redis_tests_jar
+        command: bash -c "sleep infinity"
 
     redis:
         image: redis:6.0.16
