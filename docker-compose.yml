@@ -127,83 +127,98 @@ services:
     #         - ALL
     #         - NET_ADMIN
     #         - SYS_ADMIN
+    
 
-    # redis:
-    #     image: redis:6.0.16
-    #     container_name: redis_jar
-    #     ports:
-    #         - "6379:6379"  
+    # redis-node-0:
+    #     &base_redis
+    #     image: docker.io/bitnami/redis-cluster:6.2
+    #     volumes:
+    #         - redis-cluster_data-0:/bitnami/redis/data
+    #         - /home/redis/config:/opt/bitnami/redis/etc/
+    #     networks:
+    #         - redis-cluster-network        
+    #     environment:
+    #         - 'ALLOW_EMPTY_PASSWORD=yes'
+    #         - 'REDIS_PORT_NUMBER=6379'
+    #         # - 'REDIS_PASSWORD=bitnami'
+    #         - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+
+    # redis-node-1:
+    #     <<: *base_redis
+    #     volumes:            
+    #         - redis-cluster_data-1:/bitnami/redis/data  
+    #         - /home/redis/config:/opt/bitnami/redis/etc/                  
+
+    # redis-node-2:
+    #     <<: *base_redis
+    #     volumes:
+    #         - redis-cluster_data-2:/bitnami/redis/data  
+    #         - /home/redis/config:/opt/bitnami/redis/etc/
+
+    # redis-node-3:
+    #     <<: *base_redis
+    #     volumes:
+    #         - redis-cluster_data-3:/bitnami/redis/data  
+    #         - /home/redis/config:/opt/bitnami/redis/etc/
+
+    # redis-node-4:
+    #     <<: *base_redis
+    #     volumes:
+    #         - redis-cluster_data-4:/bitnami/redis/data  
+    #         - /home/redis/config:/opt/bitnami/redis/etc/
+
+    # redis-node-5:
+    #     image: docker.io/bitnami/redis-cluster:6.2
+    #     volumes:
+    #         - redis-cluster_data-5:/bitnami/redis/data
+    #         - /home/redis/config:/opt/bitnami/redis/etc/
+    #     depends_on:
+    #         - redis-node-0
+    #         - redis-node-1
+    #         - redis-node-2
+    #         - redis-node-3
+    #         - redis-node-4
+    #     environment:
+    #         # - 'REDIS_PASSWORD=bitnami'
+    #         - 'ALLOW_EMPTY_PASSWORD=yes'
+    #         # - 'REDISCLI_AUTH=bitnami'
+    #         - 'REDIS_CLUSTER_REPLICAS=1'
+    #         - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+    #         - 'REDIS_CLUSTER_CREATOR=yes'
+    #         - 'REDIS_TLS_AUTH_CLIENTS=no'
+
+    redis_cluster:
+        # image: bitnami/redis-cluster
+        image: redis_cluster_image
+        build:
+            context: redis
+        container_name: redis_cluster_jar
+        # entrypoint: sleep infinity
+        # entrypoint: bash "tail -f /dev/null"
+        # command: bash -c "./start.sh && sleep infinity"
+        command: bash -c "./start.sh && sleep 5 && yes yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 && sleep infinity"
+        # command: bash -c "sleep infinity"
+        # command: bash -c "redis-server /app/node_1/redis.conf && cd /app/node_2 && redis-server /app/node_2/redis.conf && cd /app/node_3 && redis-server /app/node_3/redis.conf"
+        ports:
+            - "7000:7000"
+
+    redis:
+        image: redis:6.0.16
+        container_name: redis_jar
+        ports:
+            - "6379:6379"      
             
-    # redis_cluster:
-    #     # image: bitnami/redis-cluster
-    #     image: redis_cluster_image
-    #     build:
-    #         context: redis
-    #     container_name: redis_jar
-    #     # entrypoint: sleep infinity
-    #     # entrypoint: bash "tail -f /dev/null"
-    #     command: sleep infinity
+    # redis_1:
+    #     image: redis:6.0.16
+    #     container_name: redis_jar1
     #     ports:
-    #         - "6379:6379"                
-
-
-    redis-node-0:
-        &base_redis
-        image: docker.io/bitnami/redis-cluster:6.2
-        volumes:
-            - redis-cluster_data-0:/bitnami/redis/data
-            - /home/redis/config:/opt/bitnami/redis/etc/
-        networks:
-            - redis-cluster-network        
-        environment:
-            - 'ALLOW_EMPTY_PASSWORD=yes'
-            - 'REDIS_PORT_NUMBER=6379'
-            # - 'REDIS_PASSWORD=bitnami'
-            - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
-
-    redis-node-1:
-        <<: *base_redis
-        volumes:            
-            - redis-cluster_data-1:/bitnami/redis/data  
-            - /home/redis/config:/opt/bitnami/redis/etc/                  
-
-    redis-node-2:
-        <<: *base_redis
-        volumes:
-            - redis-cluster_data-2:/bitnami/redis/data  
-            - /home/redis/config:/opt/bitnami/redis/etc/
-
-    redis-node-3:
-        <<: *base_redis
-        volumes:
-            - redis-cluster_data-3:/bitnami/redis/data  
-            - /home/redis/config:/opt/bitnami/redis/etc/
-
-    redis-node-4:
-        <<: *base_redis
-        volumes:
-            - redis-cluster_data-4:/bitnami/redis/data  
-            - /home/redis/config:/opt/bitnami/redis/etc/
-
-    redis-node-5:
-        image: docker.io/bitnami/redis-cluster:6.2
-        volumes:
-            - redis-cluster_data-5:/bitnami/redis/data
-            - /home/redis/config:/opt/bitnami/redis/etc/
-        depends_on:
-            - redis-node-0
-            - redis-node-1
-            - redis-node-2
-            - redis-node-3
-            - redis-node-4
-        environment:
-            # - 'REDIS_PASSWORD=bitnami'
-            - 'ALLOW_EMPTY_PASSWORD=yes'
-            # - 'REDISCLI_AUTH=bitnami'
-            - 'REDIS_CLUSTER_REPLICAS=1'
-            - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
-            - 'REDIS_CLUSTER_CREATOR=yes'
-            - 'REDIS_TLS_AUTH_CLIENTS=no'
+    #         - "6380:6379"    
+            
+    # redis_2:
+    #     image: redis:6.0.16
+    #     container_name: redis_jar2
+    #     ports:
+    #         - "6381:6379"                
 
     django_channels:
         # docker run --rm -it -p 8000:8000 django_simple /bin/sh
@@ -228,17 +243,19 @@ services:
         environment:
             # - REDIS_HOST=redismaster1
             # - REDIS_HOST=redisreplica3
-            - REDIS_HOST=redis-node-0
-            - REDIS_PORT=6379
+            # - REDIS_HOST=redis-node-0
+            - REDIS_HOST=redis_cluster
+            - REDIS_PORT=7000
+            # - REDIS_PORT=6379
         # service deployment
-        depends_on:
-            # - redis
-            # - redis_cluster
-            - redis-node-0
-            # - redismaster1
+        # depends_on:
+        #     # - redis
+        #     - redis_cluster
+        #     # - redis-node-0
+        #     # - redismaster1
         deploy:
             mode: replicated
-            replicas: 2
+            replicas: 4
             
     # django_channels_1:
     #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
@@ -274,7 +291,8 @@ services:
     #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
     #     image: django_channels_image
     #     depends_on:
-    #         - redis                                                         
+    #         - redis     
+                                                        
     # nginx:        
     #     # build:
     #     #     context: django_channels    
