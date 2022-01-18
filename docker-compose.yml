@@ -142,30 +142,40 @@ services:
     #         - 'REDIS_PORT_NUMBER=6379'
     #         # - 'REDIS_PASSWORD=bitnami'
     #         - 'REDIS_NODES=redis-node-0 redis-node-1 redis-node-2 redis-node-3 redis-node-4 redis-node-5'
+    #     ports:
+    #         - "7000:6379"
 
     # redis-node-1:
     #     <<: *base_redis
     #     volumes:            
     #         - redis-cluster_data-1:/bitnami/redis/data  
-    #         - /home/redis/config:/opt/bitnami/redis/etc/                  
+    #         - /home/redis/config:/opt/bitnami/redis/etc/
+    #     ports:
+    #         - "7001:6379"            
 
     # redis-node-2:
     #     <<: *base_redis
     #     volumes:
     #         - redis-cluster_data-2:/bitnami/redis/data  
     #         - /home/redis/config:/opt/bitnami/redis/etc/
+    #     ports:
+    #         - "7002:6379"            
 
     # redis-node-3:
     #     <<: *base_redis
     #     volumes:
     #         - redis-cluster_data-3:/bitnami/redis/data  
     #         - /home/redis/config:/opt/bitnami/redis/etc/
+    #     ports:
+    #         - "7003:6379"
 
     # redis-node-4:
     #     <<: *base_redis
     #     volumes:
     #         - redis-cluster_data-4:/bitnami/redis/data  
     #         - /home/redis/config:/opt/bitnami/redis/etc/
+    #     ports:
+    #         - "7004:6379"                        
 
     # redis-node-5:
     #     image: docker.io/bitnami/redis-cluster:6.2
@@ -178,6 +188,8 @@ services:
     #         - redis-node-2
     #         - redis-node-3
     #         - redis-node-4
+    #     ports:
+    #         - "7005:6379"                        
     #     environment:
     #         # - 'REDIS_PASSWORD=bitnami'
     #         - 'ALLOW_EMPTY_PASSWORD=yes'
@@ -187,20 +199,69 @@ services:
     #         - 'REDIS_CLUSTER_CREATOR=yes'
     #         - 'REDIS_TLS_AUTH_CLIENTS=no'
 
+    # redis_cluster:
+    #     # image: bitnami/redis-cluster
+    #     image: redis_cluster_image
+    #     build:
+    #         context: redis
+    #     container_name: redis_cluster_jar
+    #     # entrypoint: sleep infinity
+    #     # entrypoint: bash "tail -f /dev/null"
+    #     # command: bash -c "./start.sh && sleep infinity"
+    #     command: bash -c "./start.sh && sleep 5 && yes yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 && sleep infinity"
+    #     # command: bash -c "sleep infinity"
+    #     # command: bash -c "redis-server /app/node_1/redis.conf && cd /app/node_2 && redis-server /app/node_2/redis.conf && cd /app/node_3 && redis-server /app/node_3/redis.conf"
+    #     ports:
+    #         - "7000:7000"
+    #         - "7001:7001"
+    #         - "7002:7002"
+
+
+    # redis_cluster:
+    #     # image: bitnami/redis-cluster
+    #     image: redis_cluster_image
+    #     build:
+    #         context: redis
+    #     container_name: redis_cluster_jar
+    #     # entrypoint: sleep infinity
+    #     # entrypoint: bash "tail -f /dev/null"
+    #     # command: bash -c "./start.sh && sleep infinity"
+    #     command: bash -c "./start.sh && sleep 5 && yes yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 && sleep infinity"
+    #     # command: bash -c "sleep infinity"
+    #     # command: bash -c "redis-server /app/node_1/redis.conf && cd /app/node_2 && redis-server /app/node_2/redis.conf && cd /app/node_3 && redis-server /app/node_3/redis.conf"
+    #     ports:
+    #         - "7000:7000"
+
+    redis_node_0:
+        image: redis_cluster_image        
+        build:
+            context: redis_cluster
+        ports:
+            - "7000:6379"  
+
+    redis_node_1:
+        image: redis_cluster_image
+        build:
+            context: redis_cluster
+        ports:
+            - "7001:6379"
+            
     redis_cluster:
         # image: bitnami/redis-cluster
         image: redis_cluster_image
         build:
-            context: redis
-        container_name: redis_cluster_jar
-        # entrypoint: sleep infinity
-        # entrypoint: bash "tail -f /dev/null"
-        # command: bash -c "./start.sh && sleep infinity"
-        command: bash -c "./start.sh && sleep 5 && yes yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 && sleep infinity"
+            context: redis_cluster
+        command: bash -c "./start.sh && sleep infinity"
         # command: bash -c "sleep infinity"
-        # command: bash -c "redis-server /app/node_1/redis.conf && cd /app/node_2 && redis-server /app/node_2/redis.conf && cd /app/node_3 && redis-server /app/node_3/redis.conf"
         ports:
-            - "7000:7000"
+            - "7002:6379"    
+        depends_on:
+            - redis_node_0
+            - redis_node_1                   
+
+    redis_tests:
+        image: python:3.8-slim
+
 
     redis:
         image: redis:6.0.16
@@ -244,9 +305,10 @@ services:
             # - REDIS_HOST=redismaster1
             # - REDIS_HOST=redisreplica3
             # - REDIS_HOST=redis-node-0
-            - REDIS_HOST=redis_cluster
-            - REDIS_PORT=7000
-            # - REDIS_PORT=6379
+            # - REDIS_HOST=redis_cluster
+            # - REDIS_PORT=7000
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
         # service deployment
         # depends_on:
         #     # - redis
@@ -396,22 +458,22 @@ services:
     #         - "8888:8888"
 
 
-volumes:
-    redis-cluster_data-0:
-        driver: local
-    redis-cluster_data-1:
-        driver: local
-    redis-cluster_data-2:
-        driver: local
-    redis-cluster_data-3:
-        driver: local
-    redis-cluster_data-4:
-        driver: local
-    redis-cluster_data-5:
-        driver: local    
+# volumes:
+#     redis-cluster_data-0:
+#         driver: local
+#     redis-cluster_data-1:
+#         driver: local
+#     redis-cluster_data-2:
+#         driver: local
+#     redis-cluster_data-3:
+#         driver: local
+#     redis-cluster_data-4:
+#         driver: local
+#     redis-cluster_data-5:
+#         driver: local    
 
-networks:
-#Internal-only network for proper nginx proxying and ssh
-    redis-cluster-network:
-        driver: bridge
-        internal: true
+# networks:
+# #Internal-only network for proper nginx proxying and ssh
+#     redis-cluster-network:
+#         driver: bridge
+#         internal: true
