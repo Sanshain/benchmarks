@@ -367,7 +367,9 @@ services:
     apache:
         build:
             context: apache
-        command: /bin/sh "/usr/local/apache2/bin/httpd"
+        # command: /bin/sh "/usr/local/apache2/bin/httpd"
+        # command: tail -f > /dev/null
+        # command: ./bin/httpd
         hostname: apache
         # image: httpd:alpine
         # volumes:
