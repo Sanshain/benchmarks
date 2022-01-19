@@ -314,14 +314,14 @@ services:
         build:
             context: django_channels
         # container_name: django_channels_jar
-        command: python manage.py runserver 0.0.0.0:8000
+        # command: python manage.py runserver 0.0.0.0:8000
 
         # command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
         # command: uvicorn --workers=1 --port 8000 --host 0.0.0.0 prototype_project.asgi:application
         # command: uvicorn --port 8000 --host 0.0.0.0 prototype_project.asgi:application
         # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload prototype_project.asgi:application -k uvicorn.workers.UvicornWorker
 
-        # command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
         image: django_channels_image
         # volumes:
         #     - ./app:/app  
@@ -379,22 +379,22 @@ services:
         ports:
             - "8000:8000"
 
-    # nginx:        
-    #     # build:
-    #     #     context: django_channels    
-    #     # image: nginx_image
-    #     image: nginx:latest
-    #     container_name: nginx_balancer
-    #     working_dir: /etc/nginx/conf.d
-    #     # command: bash
-    #     stdin_open: true
-    #     tty: true
-    #     volumes:
-    #         - /.pentest/nginx:/etc/nginx/conf.d
-    #         # - ./nginx:/etc/nginx/conf.d
-    #         # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-    #     ports:
-    #         - "8000:8000"
+    nginx:        
+        # build:
+        #     context: django_channels    
+        # image: nginx_image
+        image: nginx:latest
+        container_name: nginx_balancer
+        working_dir: /etc/nginx/conf.d
+        # command: bash
+        stdin_open: true
+        tty: true
+        volumes:
+            - /.pentest/nginx:/etc/nginx/conf.d
+            # - ./nginx:/etc/nginx/conf.d
+            # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+        ports:
+            - "8008:8000"
     
     # django_bjoern:
     #     container_name: django_bjoern        
