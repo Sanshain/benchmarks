@@ -314,19 +314,19 @@ services:
         build:
             context: django_channels
         # container_name: django_channels_jar
-        # command: python manage.py runserver 0.0.0.0:8000
+        command: python manage.py runserver 0.0.0.0:8000
 
         # command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
         # command: uvicorn --workers=1 --port 8000 --host 0.0.0.0 prototype_project.asgi:application
         # command: uvicorn --port 8000 --host 0.0.0.0 prototype_project.asgi:application
         # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload prototype_project.asgi:application -k uvicorn.workers.UvicornWorker
 
-        command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        # command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
         image: django_channels_image
         # volumes:
-        #     - ./app:/app
+        #     - ./app:/app  
         # ports:
-        #     - "8000:8000"    
+        #     - "8000:8000"          
         environment:
             # - REDIS_HOST=redismaster1
             # - REDIS_HOST=redisreplica3
@@ -345,15 +345,17 @@ services:
             mode: replicated
             replicas: 4
 
-    # django_channels_1:
-    #     <<: *base_django
-    #     image: django_channels
-    # django_channels_2:
-    #     <<: *base_django
-    #     image: django_channels
-    # django_channels_3:
-    #     <<: *base_django 
-    #     image: django_channels
+    django_channels_1:
+        <<: *base_django
+        image: django_channels
+    django_channels_2:
+        <<: *base_django
+        image: django_channels
+    django_channels_3:
+        <<: *base_django 
+        image: django_channels
+        # ports:
+        #     - "8000:8000"          
 
     # django_channels_4:
     #     <<: *base_django
