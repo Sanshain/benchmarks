@@ -1,5 +1,5 @@
-# FROM dlang2/dmd-ubuntu:latest
-FROM dlang2/ldc-ubuntu
+FROM dlang2/dmd-ubuntu:latest
+# FROM dlang2/ldc-ubuntu
 LABEL Description="Vibed"
 
 ENV APP_ROOT /app
@@ -13,7 +13,10 @@ COPY . .
 
 # RUN dub
 # RUN dub run -v
-RUN dub build --compiler=ldc2 --build=release
+
+RUN dub upgrade
+
+# RUN dub build --compiler=ldc2 --build=release
 
 
 # github.com/wilzbach/dlang-docker
