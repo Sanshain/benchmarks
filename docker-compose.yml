@@ -354,8 +354,8 @@ services:
     django_channels_3:
         <<: *base_django 
         image: django_channels
-        # ports:
-        #     - "8000:8000"          
+        ports:
+            - "9001:8000"          
 
     # django_channels_4:
     #     <<: *base_django
@@ -365,7 +365,14 @@ services:
     #     <<: *base_django
     # django_channels_7:
     #     <<: *base_django
-                        
+                   
+    haproxy:
+        build:
+            context: HAproxy
+        # command: tail -f > /dev/null
+        ports:
+            - "9000:8000" 
+
     apache:
         build:
             context: apache
