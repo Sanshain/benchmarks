@@ -51,7 +51,7 @@ def main():
 
     results = {}
 
-    for _port in ports.split('_'):     
+    for _port in str(ports).split('_'):     
 
         results[_port] = {}
 
