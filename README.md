@@ -55,19 +55,19 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 #### Tests w/o keepalive:
 
 Metric                 | errors | Requests per sec   | Requests per sec (ab)  | Requests per sec (single worker)  |
-:-------------         |:------:|:------------------:|:----------------------:|:---------------------------------:|
-HttpResponse		   |	0	| 	1856 requests	 |	 1419 requests	      |		833	(888) requests			  |
-render template        |	0	| 	1346 requests	 |	 1359 requests	      |		611 (612) requests     		  |
-double render template |	0	| 	1158 requests	 |	 1216 requests	      |		455	(482)  requests	          |					
+:----------------------|:------:|:------------------:|:----------------------:|:---------------------------------:|
+HttpResponse		       |	0	    | 	1856 requests	   |	 1419 requests	      |		833	(888) requests			        |
+render template        |	0	    | 	1346 requests	   |	 1359 requests	      |		611 (612) requests     		      |
+double render template |	0	    | 	1158 requests 	 |	 1216 requests	      |		455	(482)  requests	            | 					
 
 #### Tests with keepalive:
 
 
 Metric                 | errors | Requests per sec   | Requests per sec (ab)  | Requests per sec (single worker)  |
-:-------------         |:------:|:------------------:|:----------------------:|:---------------------------------:|
-HttpResponse		   |	0	| 	2839 requests	 |	 3065 requests	      |		1099 (1126) requests		  |
-render template        |	0	| 	1707 requests	 |	 1926 requests	      |		615 (649) requests     		  |
-double render template |	0	| 	1564 requests	 |	 1577 requests	      |		498	(559)  requests	          |
+:----------------------|:------:|:------------------:|:----------------------:|:---------------------------------:|
+HttpResponse		       |	0    	| 	2839 requests	   |	 3065 requests	      |		1099 (1126) requests		        |
+render template        |	0	    | 	1707 requests	   |	 1926 requests	      |		615 (649) requests     		      |
+double render template |	0    	| 	1564 requests  	 |	 1577 requests	      |		498	(559)  requests	            |
 
 
 * `single worker` in table head above means one worker of gunicorn (for clarity of the balancing effect)
