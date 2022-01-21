@@ -83,5 +83,5 @@ TODO
 
 - from [the-benchmarker](https://github.com/the-benchmarker/web-frameworks)
 - from [techempower](https://www.techempower.com/benchmarks/)
-- from [Sanshain](https://github.com/Sanshain/web_benchmarks#results)
+- from [sanshain](https://github.com/Sanshain/web_benchmarks#results)
 
