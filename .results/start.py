@@ -24,7 +24,8 @@ keep_alive = argvs.get('-k')
 
 steps = config.get('steps')
 
-strees_mode = 'm'
+# strees_mode = 'm'
+# print(strees_mode)
 
 def main():    
 
@@ -51,7 +52,7 @@ def main():
 
     results = {}
 
-    for _port in ports.split('_'):     
+    for _port in str(ports).split('_'):     
 
         results[_port] = {}
 
