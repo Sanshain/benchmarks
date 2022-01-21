@@ -321,12 +321,12 @@ services:
         # command: uvicorn --port 8000 --host 0.0.0.0 prototype_project.asgi:application
         # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload prototype_project.asgi:application -k uvicorn.workers.UvicornWorker
 
-        command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        command: gunicorn -w 8 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
         image: django_channels_image
         # volumes:
         #     - ./app:/app  
-        # ports:
-        #     - "8000:8000"          
+        ports:
+            - "8000:8000"          
         environment:
             # - REDIS_HOST=redismaster1
             # - REDIS_HOST=redisreplica3
@@ -345,17 +345,17 @@ services:
             mode: replicated
             replicas: 4
 
-    django_channels_1:
-        <<: *base_django
-        image: django_channels
-    django_channels_2:
-        <<: *base_django
-        image: django_channels
-    django_channels_3:
-        <<: *base_django 
-        image: django_channels
-        ports:
-            - "9001:8000"          
+    # django_channels_1:
+    #     <<: *base_django
+    #     image: django_channels
+    # django_channels_2:
+    #     <<: *base_django
+    #     image: django_channels
+    # django_channels_3:
+    #     <<: *base_django 
+    #     image: django_channels
+    #     ports:
+    #         - "9001:8000"          
 
     # django_channels_4:
     #     <<: *base_django
@@ -366,42 +366,42 @@ services:
     # django_channels_7:
     #     <<: *base_django
                    
-    haproxy:
-        build:
-            context: HAproxy
-        # command: tail -f > /dev/null
-        ports:
-            - "9000:8000" 
+    # haproxy:
+    #     build:
+    #         context: HAproxy
+    #     # command: tail -f > /dev/null
+    #     ports:
+    #         - "9000:8000" 
 
-    apache:
-        build:
-            context: apache
-        # command: /bin/sh "/usr/local/apache2/bin/httpd"
-        # command: tail -f > /dev/null
-        # command: ./bin/httpd
-        hostname: apache
-        # image: httpd:alpine
-        # volumes:
-        #     - /.pentest/apache:/etc/apache/conf.d        
-        ports:
-            - "8000:8000"
+    # apache:
+    #     build:
+    #         context: apache
+    #     # command: /bin/sh "/usr/local/apache2/bin/httpd"
+    #     # command: tail -f > /dev/null
+    #     # command: ./bin/httpd
+    #     hostname: apache
+    #     # image: httpd:alpine
+    #     # volumes:
+    #     #     - /.pentest/apache:/etc/apache/conf.d        
+    #     ports:
+    #         - "8000:8000"
 
-    nginx:        
-        # build:
-        #     context: django_channels    
-        # image: nginx_image
-        image: nginx:latest
-        container_name: nginx_balancer
-        working_dir: /etc/nginx/conf.d
-        # command: bash
-        stdin_open: true
-        tty: true
-        volumes:
-            - /.pentest/nginx:/etc/nginx/conf.d
-            # - ./nginx:/etc/nginx/conf.d
-            # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
-        ports:
-            - "8008:8000"
+    # nginx:        
+    #     # build:
+    #     #     context: django_channels    
+    #     # image: nginx_image
+    #     image: nginx:latest
+    #     container_name: nginx_balancer
+    #     working_dir: /etc/nginx/conf.d
+    #     # command: bash
+    #     stdin_open: true
+    #     tty: true
+    #     volumes:
+    #         - /.pentest/nginx:/etc/nginx/conf.d
+    #         # - ./nginx:/etc/nginx/conf.d
+    #         # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+    #     ports:
+    #         - "8008:8000"
     
     # django_bjoern:
     #     container_name: django_bjoern        

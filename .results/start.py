@@ -24,7 +24,7 @@ keep_alive = argvs.get('-k')
 
 steps = config.get('steps')
 
-# strees_mode = 'm'
+strees_mode = 'm'
 # print(strees_mode)
 
 def main():    
@@ -70,13 +70,13 @@ def main():
 
                 raw_result = output.decode(encoding='cp866' if platform.startswith('win') else 'utf-8')
                 result = re.search(r'Requests per second:[\s]+(\d+)', raw_result)
-                errors = re.search(r'Total errors:[\s]+(\d+)', raw_result)                
+                errors = re.search(r'(Total errors|Failed requests):[\s]+(\d+)', raw_result)                
 
                 if not result or not result.groups(): print('somethink went wrong...')
                 else:
                     print(f'on {_port} port with a load of {conn} connections and {reqs} requests worth of Requests per second is: {result.groups()[0]}')                    
 
-                if errors: print(f'errors: {errors.groups()[0]}')
+                if errors: print(f'errors: {errors.groups()[-1]}')
 
                 results[_port][conn][reqs] = result
     
