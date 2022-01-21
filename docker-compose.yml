@@ -14,7 +14,7 @@ services:
         # command: waitress-serve --listen=*:8000 --threads=8 project.wsgi:application        
         # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload project.asgi:application -k uvicorn.workers.UvicornWorker                
         # command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi
-        command: gunicorn -w 8 -b 0.0.0.0:8000 project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        command: gunicorn -w 1 -b 0.0.0.0:8000 project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
         image: django_simple
         ports:
             - "8000:8000"
@@ -30,7 +30,7 @@ services:
         build:
             context: django_channels
         # container_name: django_channels_jar
-        command: gunicorn -w 8 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
         image: django_channels_image
         ports:
             - "8001:8000"          
