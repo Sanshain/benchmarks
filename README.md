@@ -54,19 +54,21 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 
 #### Tests w/o keepalive:
 
-Metric                 | HttpResponse  | render template     | render template (double render)  |
-:-------------         |:-------------:|:-------------------:|:--------------------------------:|
-Requests per sec (ab)  | 1419 requests | 1359 requests       |          1216 requests           |
-Requests per sec       | 1856 requests | 1346 requests       |          1158 requests           |
-errors                 |      0        |       0             |          		0		        |
+Metric                 | errors | Requests per sec   | Requests per sec (ab)  |
+:-------------         |:------:|:------------------:|:----------------------:|
+HttpResponse		   |	0	| 	1856 requests	 |	 1419 requests	      |
+render template        |	0	| 	1346 requests	 |	 1359 requests	      |
+double render template |	0	| 	1158 requests	 |	 1216 requests	      |
 
 #### Tests with keepalive:
 
-Metric                 | HttpResponse  | render template     | render template (double render)  |
-:-------------         |:-------------:|:-------------------:|:--------------------------------:|
-Requests per sec (ab)  | 3065 requests | 1926 requests       |          1577 requests           |
-Requests per sec       | 2839 requests | 1707 requests       |          1564 requests           |
-errors                 |      0        |       0             |          		0		        |
+
+Metric                 | errors | Requests per sec   | Requests per sec (ab)  |
+:-------------         |:------:|:------------------:|:----------------------:|
+HttpResponse		   |	0	| 	2839 requests	 |	 3065 requests	      |
+render template        |	0	| 	1707 requests	 |	 1926 requests	      |
+double render template |	0	| 	1564 requests	 |	 1577 requests	      |
+
 
 
 #### Tests with wrk:
