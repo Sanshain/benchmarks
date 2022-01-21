@@ -1,0 +1,29 @@
+{    
+    "steps":{
+        "connections": 10,
+        "requests": 1000
+    },
+    "growth_order": [
+        "max",
+        "max_connections",
+        "max_requests",
+        "doubling",
+        "linear",
+        "squaring"
+    ],
+    "limits": {
+        "connections": 100,
+        "requests": 20000
+    },
+    "load_ways":{
+        "loadtest":{
+
+        },
+        "ab":{
+
+        },
+        "wrk":{
+
+        }
+    }    
+}
