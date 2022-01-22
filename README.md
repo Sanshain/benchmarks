@@ -1,15 +1,17 @@
 # Benchmarks: 
 
-Performance comparison for **django**, **fastapi**, **express** vs **fastify**:
+Performance evaluation of various implementations for working with web sockets:
 
 ## Quick start:
 
 #### First step:
 
-To measure performance using [loadtest](https://www.npmjs.com/package/loadtest). So install it: 
+For testing, we use a set tools (probably in the future it will be allocated to a separate repository) written specifically for load testing of websockets. It is assumed that you have **nodejs**, **npm** (or **pnpm**) and **ts-node** (or **tsc**) globally pre-installed to use them.
+To get started execute following commands:
 
-```
-npm i -g loadtest
+```shell
+cd ./django_channels/tests
+npm run i
 ```
 
 #### Second step:
@@ -21,10 +23,17 @@ docker-compose up
 #### Thirth step: 
 
 ```
-loadtest -n 20000 -c 32 http://127.0.0.1:8000
+npm run compile
+# or
+npm run build && npm run start
 ```
 
-Instead of `8000` would be either port of testing framework
+
+The following options are available for the **start** and **compile** commands:
+- `-p` - address
+- `-n` - requests amount
+- `-c` - connections amount
+
 
 ****
 
@@ -32,7 +41,7 @@ Instead of `8000` would be either port of testing framework
 
 The following ports are configured by default:
 
-- Django: *8000*
+- Daphne only: *8000*
 - Fastapi: *8008*
 - Express: *9000*
 - Fastify: *9001*
@@ -42,18 +51,17 @@ The following ports are configured by default:
 
 ### Linux
 
-Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
+Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available. By default 
 
 #### Tests w/o keepalive:
 
-Metric                 | Django        | Fastapi (sync)      | Fastapi (async)     | Django (meinheld) | Express (w c)  |  Fastify *     |  Fastify (w c) |
-:-------------         |:-------------:|:-------------------:|:-------------------:|:----------------:| :-------------:| :-------------:| :-------------:|
-Requests per sec       | 1514 requests | 1216 requests       | 1622 requests       |  1629 requests   |  1586 requests |  1750 requests |                |
-CPU usage (motionless) |     0.05%     |      2%             |        2%           |      0.15%       |       0%       |       0%       |                |
-CPU usage (max)        |     390%      |      380%           |      353%           |      335%        |      260%      |       105%     |                |
-Memory usage           |     220Mb     |      180Mb          |      175Mb          |      335Mb       |     105Mb      |      75 Mb     |                |
-pids                   |      9        |      9-106          |       9             |       9          |      35        |       23       |                |
-errors                 |      0        |       1             |       1             |       0          |       0 **     |        0       |                |
+Requests per sec                 |  Daphne only  |   nginx balancer    | haproxy balancer    |      swarm       |
+:--------------------------------|:-------------:|:-------------------:|:-------------------:|:----------------:|
+400 requests via 5 connections   |  406 requests | 1216 requests       | 1622 requests       |  1629 requests   |
+CPU usage (max)                  | 107+20 = 127% |      380%           |      353%           |      335%        |
+Memory usage                     |  55+4=59Mb    |      180Mb          |      175Mb          |      335Mb       |
+pids                             |   8+5=13      |      9-106          |       9             |       9          |
+errors                           |      0        |       1             |       1             |       0          |
 
 #### Tests with keepalive:
 

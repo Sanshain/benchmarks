@@ -232,57 +232,57 @@ services:
     #     ports:
     #         - "7000:7000"
 
-    redis_node_0:
-        &base_redis
-        image: redis_cluster_image        
-        build:
-            context: redis_cluster
-        ports:
-            - "7000:6379"  
+    # redis_node_0:
+    #     &base_redis
+    #     image: redis_cluster_image        
+    #     build:
+    #         context: redis_cluster
+    #     ports:
+    #         - "7000:6379"  
 
-    redis_node_1:
-        <<: *base_redis
-        ports:
-            - "7001:6379"
+    # redis_node_1:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7001:6379"
             
-    redis_node_2:
-        <<: *base_redis
-        ports:
-            - "7002:6379"  
+    # redis_node_2:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7002:6379"  
 
-    redis_node_3:
-        <<: *base_redis
-        ports:
-            - "7003:6379"
+    # redis_node_3:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7003:6379"
 
-    redis_node_4:
-        <<: *base_redis
-        ports:
-            - "7004:6379"              
+    # redis_node_4:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7004:6379"              
 
-    redis_cluster:
-        # image: bitnami/redis-cluster
-        image: redis_cluster_image
-        build:
-            context: redis_cluster
-        # command: bash -c "./start3_nodes.sh && sleep infinity"
-        command: bash -c "./start6_nodes.sh && sleep infinity"
-        # command: bash -c "sleep infinity"
-        ports:
-            - "7005:6379"    
-        depends_on:
-            - redis_node_0
-            - redis_node_1                   
-            - redis_node_2                   
-            - redis_node_3                   
-            - redis_node_4                   
+    # redis_cluster:
+    #     # image: bitnami/redis-cluster
+    #     image: redis_cluster_image
+    #     build:
+    #         context: redis_cluster
+    #     # command: bash -c "./start3_nodes.sh && sleep infinity"
+    #     command: bash -c "./start6_nodes.sh && sleep infinity"
+    #     # command: bash -c "sleep infinity"
+    #     ports:
+    #         - "7005:6379"    
+    #     depends_on:
+    #         - redis_node_0
+    #         - redis_node_1                   
+    #         - redis_node_2                   
+    #         - redis_node_3                   
+    #         - redis_node_4                   
 
-    redis_tests:
-        build:
-            context: redis/tests
-        image: redis_tests_image
-        container_name: redis_tests_jar
-        command: bash -c "sleep infinity"
+    # redis_tests:
+    #     build:
+    #         context: redis/tests
+    #     image: redis_tests_image
+    #     container_name: redis_tests_jar
+    #     command: bash -c "sleep infinity"
 
     redis:
         image: redis:6.0.16
@@ -340,21 +340,22 @@ services:
             mode: replicated
             replicas: 4
             
-    # django_channels_1:
-    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
-    #     image: django_channels_image
-    #     depends_on:
-    #         - redis   
-    # django_channels_2:
-    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
-    #     image: django_channels_image
-    #     depends_on:
-    #         - redis  
-    # django_channels_3:
-    #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
-    #     image: django_channels_image
-    #     depends_on:
-    #         - redis      
+    django_channels_1:
+        command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+        image: django_channels_image
+        depends_on:
+            - redis   
+    django_channels_2:
+        command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+        image: django_channels_image
+        depends_on:
+            - redis  
+    django_channels_3:
+        command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+        image: django_channels_image
+        depends_on:
+            - redis      
+
     # django_channels_4:
     #     command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
     #     image: django_channels_image
@@ -375,37 +376,45 @@ services:
     #     image: django_channels_image
     #     depends_on:
     #         - redis     
-                                                        
-    # nginx:        
-    #     # build:
-    #     #     context: django_channels    
-    #     # image: nginx_image
-    #     image: nginx:latest
-    #     container_name: nginx_balancer
-    #     working_dir: /etc/nginx/conf.d
-    #     command: bash
-    #     stdin_open: true
-    #     tty: true
-    #     volumes:
-    #         - /.pentest/nginx:/etc/nginx/conf.d
-    #         # - ./nginx:/etc/nginx/conf.d
-    #         # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf   
-    #     ports:
-    #         - "8000:8000"
+
+    haproxy:
+        # build:
+        #     context: HAproxy
+        image: haproxy_image
+        # command: tail -f > /dev/null
+        ports:
+            - "9000:8000"     
+    
+    nginx:        
+        # build:
+        #     context: django_channels    
+        # image: nginx_image
+        image: nginx:latest
+        container_name: nginx_balancer
+        working_dir: /etc/nginx/conf.d
+        command: bash
+        stdin_open: true
+        tty: true
+        volumes:
+            - /.pentest/nginx:/etc/nginx/conf.d
+            # - ./nginx:/etc/nginx/conf.d
+            # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf   
+        ports:
+            - "8008:8000"
     # django_bjoern:
     #     container_name: django_bjoern        
     #     command: python wsgi_bjoern.py
     #     image: django_simple
     #     ports:
     #         - "8000:8000"
-    fastapi:
-        build:
-            context: fastapi
-        container_name: fastapi_guvicorn        
-        command: gunicorn main:app -w 8 --reuse-port --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8008
-        image: fastapi_guvicorn
-        ports:
-            - "8008:8008"
+    # fastapi:
+    #     build:
+    #         context: fastapi
+    #     container_name: fastapi_guvicorn        
+    #     command: gunicorn main:app -w 8 --reuse-port --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8008
+    #     image: fastapi_guvicorn
+    #     ports:
+    #         - "8008:8008"
     # hunt_http:
     #     # docker run --rm -it -p 8000:8000 hunt-http bash
 
@@ -441,17 +450,17 @@ services:
     #     image: vibe_d_app
     #     ports:
     #         - "9000:8088"
-    express:
-        build:
-            context: express
-        container_name: express_app        
-        # command: node index.js
-        # command: pm2 start index.js -i max
-        command: pm2-runtime start index.js -i max
-        # command: node cluster.js
-        image: express_project
-        ports:
-            - "9000:3000"
+    # express:
+    #     build:
+    #         context: express
+    #     container_name: express_app        
+    #     # command: node index.js
+    #     # command: pm2 start index.js -i max
+    #     command: pm2-runtime start index.js -i max
+    #     # command: node cluster.js
+    #     image: express_project
+    #     ports:
+    #         - "9000:3000"
     # fastify_cluster:
     #     build:
     #         context: fastify-cluster
@@ -460,14 +469,14 @@ services:
     #     image: fastify_cluster_project
     #     ports:
     #         - "9001:7300"       
-    fastify:
-        build:
-            context: fastify
-        container_name: fastify_app        
-        command: npm run begin
-        image: fastify_project
-        ports:
-            - "9001:3000"        
+    # fastify:
+    #     build:
+    #         context: fastify
+    #     container_name: fastify_app        
+    #     command: npm run begin
+    #     image: fastify_project
+    #     ports:
+    #         - "9001:3000"        
 
     # wrk:        
     #     image: skandyla/wrk
