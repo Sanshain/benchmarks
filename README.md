@@ -91,7 +91,6 @@ errors ( 2000 messages)        * |       0       |       0..10         |        
 1 requests via 400 connections * | 85 requests   |   271 requests      |   244 requests           |   247 requests   |
 1 establis via 400 connections * | 124 connects  |  288 connections    |   291 connects           |  560 connects    |
 errors ( 400 messages) *         |       0       |       0             |       0                  |                  |
-
 CPU usage (max)                  |      112%     |(70..90)x4+50 = 330% | (45..85)x4 + 10% = 270 % |      374%        |
 Memory usage                     |   56..124 Mb  |       215Mb         |      175Mb               |      271Mb       |
 pids                             |      10       |         39          |       38                 |       45         |
