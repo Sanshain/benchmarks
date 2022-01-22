@@ -69,9 +69,7 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 Requests per sec                 | Daphne only **|   nginx balancer    | haproxy balancer         |      swarm       |
 :--------------------------------|:-------------:|:-------------------:|:------------------------:|:----------------:|
 400 requests via 1 connections   | 292 requests  |  285 requests       |   295 requests           |   242 requests   |
-errors (400 messages)            |       0       |       0             |       0                  |       0          |
 400 requests via 5 connections   | 376 requests  |  468 requests       | 503.8 requests           |   493 requests   |
-errors (2000 messages)           |       0       |       0             |       0                  |       0          |
 400 requests via 15 connections  | 389 requests  |  668 requests       | 659.6 requests           |   692 requests   |
 errors (6000 messages)           |       0       |       0             |       0                  |       0          |
 100 requests via 35 connections  | 381 requests  |  667 requests       |  631 requests            |   686 requests   |
