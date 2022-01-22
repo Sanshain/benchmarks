@@ -71,7 +71,6 @@ Requests per sec                 | Daphne only **|   nginx balancer    | haproxy
 400 requests via 1 connections   | 292 requests  |  285 requests       |   295 requests           |   242 requests   |
 400 requests via 5 connections   | 376 requests  |  468 requests       | 503.8 requests           |   493 requests   |
 400 requests via 15 connections  | 389 requests  |  668 requests       | 659.6 requests           |   692 requests   |
-errors (6000 messages)           |       0       |       0             |       0                  |       0          |
 100 requests via 35 connections  | 381 requests  |  667 requests       |  631 requests            |   686 requests   |
 errors (3500 messages)           |       0       |       0             |       0                  |       1          |
 100 requests via 100 connections | 300 requests  |  612 requests       |  603 requests            |   640 requests   |
