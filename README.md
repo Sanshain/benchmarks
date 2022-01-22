@@ -34,6 +34,11 @@ The following options are available for the **start** and **compile** commands:
 - `-n` - requests amount
 - `-c` - connections amount
 
+For example:
+
+```
+npm run compile -- -p 8008
+```
 
 ****
 
@@ -55,13 +60,15 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 
 #### Tests w/o keepalive:
 
-Requests per sec                 |  Daphne only  |   nginx balancer    | haproxy balancer    |      swarm       |
+Requests per sec                 | Daphne only * |   nginx balancer    | haproxy balancer    |      swarm       |
 :--------------------------------|:-------------:|:-------------------:|:-------------------:|:----------------:|
-400 requests via 5 connections   |  406 requests | 1216 requests       | 1622 requests       |  1629 requests   |
+400 requests via 5 connections   | 406 requests  | 1216 requests       | 1622 requests       |  1629 requests   |
 CPU usage (max)                  | 107+20 = 127% |      380%           |      353%           |      335%        |
 Memory usage                     |  55+4=59Mb    |      180Mb          |      175Mb          |      335Mb       |
 pids                             |   8+5=13      |      9-106          |       9             |       9          |
 errors                           |      0        |       1             |       1             |       0          |
+
+* Inside `Daphne only` after up another containers performance down to 376 req/sec
 
 #### Tests with keepalive:
 
