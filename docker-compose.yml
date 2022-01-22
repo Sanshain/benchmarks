@@ -288,11 +288,11 @@ services:
 
 
 
-    redis:
-        image: redis:6.0.16
-        container_name: redis_jar
-        ports:
-            - "6379:6379"      
+    # redis:
+    #     image: redis:6.0.16
+    #     container_name: redis_jar
+    #     ports:
+    #         - "6379:6379"      
             
     # redis_1:
     #     image: redis:6.0.16
@@ -366,12 +366,12 @@ services:
     # django_channels_7:
     #     <<: *base_django
                    
-    # haproxy:
-    #     build:
-    #         context: HAproxy
-    #     # command: tail -f > /dev/null
-    #     ports:
-    #         - "9000:8000" 
+    haproxy:
+        build:
+            context: HAproxy
+        # command: tail -f > /dev/null
+        ports:
+            - "9000:8000" 
 
     # apache:
     #     build:
