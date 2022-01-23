@@ -3,29 +3,26 @@ FROM debian:bullseye-slim
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
 RUN groupadd -r -g 999 redis && useradd -r -g redis -u 999 redis
 
-
+# apt-get update --allow-unauthenticated
+# apt-get update --allow-insecure-repositories
 
 RUN apt-get update; \	
-	# 1 
 	apt-get install redis -y
-	# *
+
 
 # COPY ./config/cluster/node_1 /app/node_1
 # COPY ./config/cluster/node_2 /app/node_1
 # COPY ./config/cluster/node_3 /app/node_3
 
+
 COPY ./config/cluster /app
-
-# COPY ./config/cluster/systemd/cluster.service /run/systemd/system/
 COPY ./start.sh /app
-
-
+# COPY ./config/cluster/systemd/cluster.service /run/systemd/system/
 
 
 RUN mkdir /data; \
 	chown redis:redis /data;
-
-WORKDIR /data
+# WORKDIR /data
 
 
 
@@ -33,14 +30,13 @@ WORKDIR /data
 
 RUN apt-get install procps -y; 
 
-
 EXPOSE 7000
 # EXPOSE 6379
 
-# WORKDIR /app/node_1
 WORKDIR /app
-
 CMD ./start.sh
+
+
 
 
 # CMD ["yes", "|", "redis-server", "/app/node_1/redis.conf"]

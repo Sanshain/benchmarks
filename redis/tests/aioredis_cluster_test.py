@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+
 import asyncio
 
 import aioredis_cluster

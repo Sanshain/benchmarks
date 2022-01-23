@@ -205,68 +205,68 @@ services:
 
 
 
-    # redis_cluster:
-    #     # image: bitnami/redis-cluster
-    #     image: redis_cluster_image
-    #     build:
-    #         context: redis
-    #     container_name: redis_cluster_jar
-    #     # entrypoint: sleep infinity
-    #     # entrypoint: bash "tail -f /dev/null"
-    #     # command: bash -c "./start.sh && sleep infinity"
-    #     command: bash -c "./start.sh && sleep 5 && yes yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 && sleep infinity"
-    #     # command: bash -c "sleep infinity"
-    #     # command: bash -c "redis-server /app/node_1/redis.conf && cd /app/node_2 && redis-server /app/node_2/redis.conf && cd /app/node_3 && redis-server /app/node_3/redis.conf"
-    #     ports:
-    #         - "7000:7000"
-    #         # - "7001:7001"
-    #         # - "7002:7002"
-
-
-    redis_node_0:
-        &base_redis
-        image: redis_cluster_image        
-        build:
-            context: redis_cluster
-        ports:
-            - "7000:6379"  
-
-    redis_node_1:
-        <<: *base_redis
-        ports:
-            - "7001:6379"
-            
-    redis_node_2:
-        <<: *base_redis
-        ports:
-            - "7002:6379"  
-
-    redis_node_3:
-        <<: *base_redis
-        ports:
-            - "7003:6379"
-
-    redis_node_4:
-        <<: *base_redis
-        ports:
-            - "7004:6379"              
-
     redis_cluster:
         # image: bitnami/redis-cluster
         image: redis_cluster_image
         build:
-            context: redis_cluster
-        # command: bash -c "./start3_nodes.sh && sleep infinity"
-        command: bash -c "./start6_nodes.sh && sleep infinity"
+            context: redis
+        container_name: redis_cluster_jar
+        # entrypoint: sleep infinity
+        # entrypoint: bash "tail -f /dev/null"
+        # command: bash -c "./start.sh && sleep infinity"
+        command: bash -c "./start.sh && sleep 5 && yes yes | redis-cli --cluster create 127.0.0.1:7000 127.0.0.1:7001 127.0.0.1:7002 && sleep infinity"
         # command: bash -c "sleep infinity"
+        # command: bash -c "redis-server /app/node_1/redis.conf && cd /app/node_2 && redis-server /app/node_2/redis.conf && cd /app/node_3 && redis-server /app/node_3/redis.conf"
         ports:
-            - "7005:6379"    
-        depends_on:
-            - redis_node_0
-            - redis_node_1                   
-            - redis_node_2                   
-            - redis_node_3                   
-            - redis_node_4                   
+            - "7000:7000"
+            - "7001:7001"
+            - "7002:7002"
+
+
+    # redis_node_0:
+    #     &base_redis
+    #     image: redis_cluster_image        
+    #     build:
+    #         context: redis_cluster
+    #     ports:
+    #         - "7000:6379"  
+
+    # redis_node_1:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7001:6379"
+            
+    # redis_node_2:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7002:6379"  
+
+    # redis_node_3:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7003:6379"
+
+    # redis_node_4:
+    #     <<: *base_redis
+    #     ports:
+    #         - "7004:6379"              
+
+    # redis_cluster:
+    #     # image: bitnami/redis-cluster
+    #     image: redis_cluster_image
+    #     build:
+    #         context: redis_cluster
+    #     # command: bash -c "./start3_nodes.sh && sleep infinity"
+    #     command: bash -c "./start6_nodes.sh && sleep infinity"
+    #     # command: bash -c "sleep infinity"
+    #     ports:
+    #         - "7005:6379"    
+    #     depends_on:
+    #         - redis_node_0
+    #         - redis_node_1                   
+    #         - redis_node_2                   
+    #         - redis_node_3                   
+    #         - redis_node_4                   
 
     redis_tests:
         build:
@@ -282,40 +282,40 @@ services:
         ports:
             - "6379:6379"         
 
-    # django_channels:
-    #     &base_django
-    #     # docker run --rm -it -p 8000:8000 django_simple /bin/sh
-    #     # docker run --rm -it -p 8000:8000 django_simple bash        
+    django_channels:
+        &base_django
+        # docker run --rm -it -p 8000:8000 django_simple /bin/sh
+        # docker run --rm -it -p 8000:8000 django_simple bash        
         
-    #     build:
-    #         context: django_channels
-    #     # container_name: django_channels_jar
-    #     # command: python manage.py runserver 0.0.0.0:8000
+        build:
+            context: django_channels
+        # container_name: django_channels_jar
+        # command: python manage.py runserver 0.0.0.0:8000
 
-    #     # command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
-    #     # command: uvicorn --workers=1 --port 8000 --host 0.0.0.0 prototype_project.asgi:application
-    #     # command: uvicorn --port 8000 --host 0.0.0.0 prototype_project.asgi:application
-    #     # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload prototype_project.asgi:application -k uvicorn.workers.UvicornWorker
+        # command: daphne -b 0.0.0.0 -p 8000 prototype_project.asgi:application
+        # command: uvicorn --workers=1 --port 8000 --host 0.0.0.0 prototype_project.asgi:application
+        # command: uvicorn --port 8000 --host 0.0.0.0 prototype_project.asgi:application
+        # command: gunicorn -w 8 -b 0.0.0.0:8000 --preload prototype_project.asgi:application -k uvicorn.workers.UvicornWorker
 
-    #     command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
-    #     image: django_channels_image
-    #     ports:
-    #         - "8000:8000"          
-    #     environment:
-    #         # - REDIS_HOST=redismaster1
-    #         # - REDIS_HOST=redisreplica3
-    #         # - REDIS_HOST=redis-node-0
-    #         # - REDIS_HOST=redis_cluster
-    #         # - REDIS_PORT=7000
-    #         - REDIS_HOST=redis
-    #         - REDIS_PORT=6379
-    #     # service deployment
-    #     depends_on:
-    #         - redis
-    #         # - redis_cluster
-    #         # - redis-node-0
-    #         # - redismaster1
-    #     deploy:
-    #         mode: replicated
-    #         replicas: 4
+        command: gunicorn -w 1 -b 0.0.0.0:8000 prototype_project.wsgi:application -k meinheld.gmeinheld.MeinheldWorker      
+        image: django_channels_image
+        ports:
+            - "8000:8000"          
+        environment:
+            # - REDIS_HOST=redismaster1
+            # - REDIS_HOST=redisreplica3
+            # - REDIS_HOST=redis-node-0
+            # - REDIS_HOST=redis_cluster
+            # - REDIS_PORT=7000
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        # service deployment
+        depends_on:
+            - redis
+            # - redis_cluster
+            # - redis-node-0
+            # - redismaster1
+        deploy:
+            mode: replicated
+            replicas: 4
 

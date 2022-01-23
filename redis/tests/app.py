@@ -1,3 +1,5 @@
+#!/usr/local/bin/python
+
 import sys
 
 from rediscluster import RedisCluster

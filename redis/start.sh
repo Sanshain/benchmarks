@@ -1,4 +1,5 @@
-#! /bin/bash
+
+#!/bin/bash
 
 nohup redis-server ./node_1/redis.conf&
 nohup redis-server ./node_2/redis.conf&
