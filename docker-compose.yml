@@ -36,6 +36,7 @@ services:
         image: fastapi_guvicorn
         ports:
             - "8008:8008"
+
     # hunt_http:
     #     # docker run --rm -it -p 8000:8000 hunt-http bash
 
@@ -59,21 +60,24 @@ services:
     #     ports:
     #         - "9001:8080"
 
-    # vibe_d:
-    #     # docker run --rm -it -p 8000:8000 vibe_d_app bash
+    vibe_d:
+        # docker run --rm -it -p 8000:8000 vibe_d_app bash
 
-    #     build:
-    #         context: vibed        
-    #     container_name: vibe_d_app  
-    #     # command: dub run --compiler=ldc2 --build=release      
-    #     # command: dub run --build=release 
-    #     # command: /bin/sh "tail -f /dev/null"
-    #     command: bash -c "tail -f /dev/null"
-    #     # command: bash -c "git clone https://github.com/huntlabs/hunt-skeleton.git app && cd app "
-    #     # command: bash -c "dub run -v"
-    #     image: vibe_d_app
-    #     ports:
-    #         - "9000:8088"
+        build:
+            context: vibed
+            # dockerfile: vibed/Dockerfile-dmd-ubuntu
+        container_name: vibe_d_app  
+        # command: dub run --compiler=ldc2 --build=release      
+        # command: dub run --build=release
+        # command: /bin/sh "source ~/dlang/dmd-2.098.1/activate && tail -f /dev/null"
+        # command: /bin/sh "tail -f /dev/null"
+        # command: bash -c "tail -f /dev/null"
+
+        command: bash -c "./vibe_d"
+        # command: bash -c "dub run -v"
+        image: vibe_d_app
+        ports:
+            - "7000:8088"
 
     # vibe_d:
     #     image: simdnyan/vibed    

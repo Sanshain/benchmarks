@@ -46,30 +46,37 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 
 #### Tests w/o keepalive:
 
-Metric                 | Django        | Fastapi (sync)      | Fastapi (async)     | Django (meinheld) | Express (w c)  |  Fastify *     |  Fastify (w c) |
-:-------------         |:-------------:|:-------------------:|:-------------------:|:----------------:| :-------------:| :-------------:| :-------------:|
-Requests per sec       | 1514 requests | 1216 requests       | 1622 requests       |  1629 requests   |  1586 requests |  1750 requests |                |
-CPU usage (motionless) |     0.05%     |      2%             |        2%           |      0.15%       |       0%       |       0%       |                |
-CPU usage (max)        |     390%      |      380%           |      353%           |      335%        |      260%      |       105%     |                |
-Memory usage           |     220Mb     |      180Mb          |      175Mb          |      335Mb       |     105Mb      |      75 Mb     |                |
-pids                   |      9        |      9-106          |       9             |       9          |      35        |       23       |                |
-errors                 |      0        |       1             |       1             |       0          |       0 **     |        0       |                |
+Metric                 |Requests per sec       |CPU usage (motionless) |CPU usage (max)        |Memory usage           |pids                   |errors                 |
+:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|
+ Django                | 1514 requests         |     0.05%             |     390%              |     220Mb             |      9                |      0                |
+ Fastapi (sync)        | 1216 requests         |      2%               |      380%             |      180Mb            |      9-106            |       1               |
+ Fastapi (async)       | 1622 requests         |        2%             |      353%             |      175Mb            |       9               |       1               |
+ Django (meinheld)     |  1629 requests        |      0.15%            |      335%             |      335Mb            |       9               |       0               |
+ Express (w c)         |  1586 requests        |       0%              |      260%             |     105Mb             |      35               |       0 **            |
+  Fastify *            |  1750 requests        |       0%              |       105%            |      75 Mb            |       23              |        0              |
+  Fastify (w c)        |                       |                       |                       |                       |                       |                       |
+   vibe-d (dmd) ****   | 2342 requests         |      0%               |       105%            |        33Mb           |          6            |        0              |
+
 
 #### Tests with keepalive:
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django (meinheld)|Express (w c)*** |Fastify (w/o c) |  Fastify (w c) |
-:-------------         |:-------------:|:--------------:|:--------------:|:----------------:| :--------------:| :-------------:| :-------------:|
-Requests per sec       | 1514 requests | 2114 requests  |  3569 requests |  2884 requests   |  4500 requests  |  3500 requests |  4500 requests |
-CPU usage (motionless) |     0.05%     |        2%      |        2%      |      0.15%       |  0%             | 0%             |        0%      |
-CPU usage (max)        |     390%      |       405%     |       380%     |      400%        |      195%       |       105%     |      212%      |
-Memory usage           |     220Mb     |      175Mb     |      180Mb     |      335Mb       |      60Mb       |      75 Mb     |       477 Mb   |
-pids                   |      9        |       61       |          9     |       9          |       9         |      35        |       47       |
-errors                 |      0        |       0        |        0       |       0          |       0         |        0       |        0       |
+Metric                 |Requests per sec       |CPU usage (motionless) |CPU usage (max)        |Memory usage           |pids                   |errors                 |
+:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|
+ Django                | 1514 requests         |     0.05%             |     390%              |     220Mb             |      9                |      0                |
+Fastapi (sync)         | 2114 requests         |        2%             |       405%            |      175Mb            |       61              |       0               |
+ Fastapi(async)        |  3569 requests        |        2%             |       380%            |      180Mb            |          9            |        0              |
+ Django (meinheld)     |  2884 requests        |      0.15%            |      400%             |      335Mb            |       9               |       0               |
+Express (w c)***       |  4500 requests        |  0%                   |      195%             |      60Mb             |       9               |       0               |
+Fastify (w/o c)        |  3500 requests        | 0%                    |       105%            |      75 Mb            |      35               |        0              |
+  Fastify (w c)        |  4500 requests        |        0%             |      212%             |       477 Mb          |       47              |        0              |
+   vibe-d (dmd) ****   | 4142 requests         |      0%               |       105%            |        33Mb           |          6            |        0              |
+
 
 **Footnotes:**
 * w/o clusterisation (manual clusterisation did not have any effect (expect the hugest memory allocation) because of (I suppose) clusterisation integrated in framework)
 * w/o clusterisation was at less one error
 * Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably and 55 processes)
+* vibe-d was launched on only one core (w/o clusterisation)
 
 #### Tests with wrk:
 

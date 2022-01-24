@@ -10,13 +10,17 @@
 	"license": "proprietary",
 	"name": "vibe_d",
 	"targetType":"executable",
+	"version": "VibeNoSSL",
 	"configuration": {
 		"application":{
 			"mainSourceFile": "src/application.d",
 			"version": "VibeNoSSL"
 		}
+		
 	},
 	"subConfigurations": {
 		"vibe-d:tls": "openssl-1.1"
-	}
+	}	
 }
+
+// https: //github.com/vibe-d/vibe.d/issues/1748

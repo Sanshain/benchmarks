@@ -18,5 +18,9 @@
 	},
 	"subConfigurations": {
 		"vibe-d:tls": "openssl-1.1"
-	}
+	},
+	"libs-posix": [
+		":libssl.so.1.0.0",
+		":libcrypto.so.1.0.0"
+	]	
 }

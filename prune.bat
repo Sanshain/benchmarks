@@ -1,0 +1,1 @@
+docker builder prune && docker image prune -f && docker container prune -f"

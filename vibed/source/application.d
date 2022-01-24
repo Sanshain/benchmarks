@@ -2,10 +2,16 @@ import vibe.vibe;
 
 void main()
 {
-	auto settings = new HTTPServerSettings;
-	settings.port = 8088;
-	settings.bindAddresses = ["::1", "0.0.0.0"];
-	auto listener = listenHTTP(settings, &hello);
+	// auto settings = new HTTPServerSettings;
+	// settings.port = 8088;
+	// settings.bindAddresses = ["::1", "0.0.0.0"];
+	// auto listener = listenHTTP(settings, &hello);
+
+    auto listener = listenHTTP("0.0.0.0:8088", (req, res) 
+	{
+        res.writeBody("Hello Vibe.d: " ~ req.path);
+    });
+	
 	scope (exit)
 	{
 		listener.stopListening();
