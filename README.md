@@ -112,13 +112,13 @@ longest request        |      58 ms        |      113ms             |     43 ms 
 
 #### Results with keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) |    ASP NET ** | Fastify (w c)* |    IIS        |      vibeD    |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) |    ASP NET ** | Fastify        |    IIS        |      vibeD    |
 :-------------         |:-----------------:|:----------------------:| :-------------:|:-------------:| :-------------:|:-------------:|:-------------:|
 Request per sec        |        -//-       |    -//-                | 4132 requests  | 4572 requests |  5350 requests | 5000 requests | 5300 requests |
 longest request        |                   |                        |      45 ms     |    53 ms      |      45 ms     |    41 ms      |    41 ms      |
 
 
-* Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster)
+* With clusterisations and w/o is equals results (Node.js clusterisation is handling via [clusters](https://www.npmjs.com/package/cluster))
 * ASP NET consumes about 150 MB of RAM in dev mode. I didn't check it after deployment, but it's unlikely anymore
 
 ---- 
