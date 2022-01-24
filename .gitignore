@@ -1,23 +1,20 @@
 
-# dlang:
+# dlang/vibed/
 
-# vibed/
 hunt/
 hunt-http/
 
 
-
 # node:
-node_modules/
 
+node_modules/
 # fastify_cluster:
 ..git/
 
 
-
 # asp.net:
-netcore/
 
+netcore/
 Release/
 Debug/
 packages/
@@ -27,3 +24,10 @@ aspnet/**/Scripts/***.js
 # python: 
 
 __pycache__/
+*.pyc
+
+
+# nginx:
+
+nginx/Windows/
+!nginx/Windows/conf/nginx.conf
