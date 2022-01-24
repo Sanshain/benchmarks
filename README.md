@@ -112,7 +112,7 @@ longest request        |      58 ms        |      113ms             |     43 ms 
 
 #### Results with keepalive:
 
-Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) |    ASP NET ** | Fastify        |    IIS        |      vibeD    |
+Metric                 | Django (waitress) | Fastapi (just uvicorn) |  Express (pm2) |    ASP NET ** | Fastify *      |    IIS        |      vibeD    |
 :-------------         |:-----------------:|:----------------------:| :-------------:|:-------------:| :-------------:|:-------------:|:-------------:|
 Request per sec        |        -//-       |    -//-                | 4132 requests  | 4572 requests |  5350 requests | 5000 requests | 5300 requests |
 longest request        |                   |                        |      45 ms     |    53 ms      |      45 ms     |    41 ms      |    41 ms      |
