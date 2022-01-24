@@ -36,6 +36,10 @@ The following ports are configured by default:
 
 The test results are not given here, because the author does not see any usefulness in them, and the absolute values on different machines will differ
 
+## Alternatives:
+
+If the performance is not good enough in all cases, you can try using [Aerospike](https://aerospike-python-client.readthedocs.io/en/latest/aerospike.html) instead of redis
+
 ---- 
 
 ## Another comparisions:
