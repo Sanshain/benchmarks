@@ -92,14 +92,18 @@ docker network inspect pentest_default
 wrk -t4 -c100 -d3s <url>  # for example http://172.21.0.3:3000
 ```
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)* |Fastify (w/o c) |  Fastify (w c) |   vibed *   |
-:-------------         |:-------------:|:--------------:|:--------------:|:-------------:| :-------------:| :-------------:| :-------------:|:----------:|
-Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 4100 requests | 35000 requests | 10500 requests | 30000 requests | 16000 reqs |
-CPU usage (max)        |     390%      |        380%    |       380%     |     390%      |      425%      |       425%     |      425%      |    120%    |
-Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     235Mb     |     120Mb      |      75 Mb     |       420 Mb   |    6 Mb    |
+Metric                 |Requests per sec       |CPU usage (max)        |Memory usage           |
+:---------------------:|:---------------------:|:---------------------:|:---------------------:|
+ Django                | 2200 requests         |     390%              |     220Mb             |
+Fastapi (sync)         |  3500 requests        |        380%           |      176 Mb           |
+ Fastapi(async)        |  7000 requests        |       380%            |      100Mb            |
+ Django  (m)           | 4100 requests         |     390%              |     235Mb             |
+ Express (w c)*        | 35000 requests        |      425%             |     120Mb             |
+Fastify (w/o c)        | 10500 requests        |       425%            |      75 Mb            |
+  Fastify (w c)        | 30000 requests        |      425%             |       420 Mb          |
+  vibe-d (one core)    | 16000 requests        |      120%             |         6 Mb          |
 
 * Results with pm2 is not included, because its showed worse results on loadtest than on manual clusterisation tuning (9000 r/sec)
-* just one core
 
 
 ### Windows 
