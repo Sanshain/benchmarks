@@ -5,6 +5,7 @@
 # FROM alpine-ldc:1.9.0
 # FROM dlang2/ldc-ubuntu
 FROM dlang2/ldc-circleci
+# Ubuntu 18.04.5 LTS
 
 # curl -fsS https://dlang.org/install.sh | bash -s dmd
 
@@ -30,6 +31,8 @@ COPY . .
 # RUN dub run -v
 
 RUN dub upgrade
+
+RUN sudo chmod 777 .
 RUN sudo chmod 777 /app/.dub/build
 
 # RUN dub build --compiler=dmd --build=release

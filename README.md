@@ -69,7 +69,7 @@ Fastapi (sync)         | 2114 requests         |        2%             |       4
 Express (w c)***       |  4500 requests        |  0%                   |      195%             |      60Mb             |       9               |       0               |
 Fastify (w/o c)        |  3500 requests        | 0%                    |       105%            |      75 Mb            |      35               |        0              |
   Fastify (w c)        |  4500 requests        |        0%             |      212%             |       477 Mb          |       47              |        0              |
-   vibe-d (dmd) ****   | 4142 requests         |      0%               |       105%            |        33Mb           |          6            |        0              |
+   vibe-d (dmd) ****   | 4150 requests         |      0%               |       105%            |        33Mb           |          6            |        0              |
 
 
 **Footnotes:**

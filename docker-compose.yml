@@ -28,6 +28,7 @@ services:
     #     image: django_simple
     #     ports:
     #         - "8000:8000"
+    
     fastapi:
         build:
             context: fastapi
@@ -78,6 +79,9 @@ services:
         image: vibe_d_app
         ports:
             - "7000:8088"
+        deploy:            
+            mode: replicated
+            replicas: 4            
 
     # vibe_d:
     #     image: simdnyan/vibed    
@@ -102,22 +106,22 @@ services:
         ports:
             - "9000:3000"
 
-    # fastify_cluster:
-    #     build:
-    #         context: fastify-cluster
-    #     container_name: fastify_cluster_app        
-    #     command: npm start
-    #     image: fastify_cluster_project
-    #     ports:
-    #         - "9001:7300"       
-    fastify:
+    fastify_cluster:
         build:
-            context: fastify
-        container_name: fastify_app        
-        command: npm run begin
-        image: fastify_project
+            context: fastify-cluster
+        container_name: fastify_cluster_app        
+        command: npm start
+        image: fastify_cluster_project
         ports:
-            - "9001:3000"        
+            - "9001:7300"       
+    # fastify:
+    #     build:
+    #         context: fastify
+    #     container_name: fastify_app        
+    #     command: npm run begin
+    #     image: fastify_project
+    #     ports:
+    #         - "9001:3000"        
 
     # wrk:        
     #     image: skandyla/wrk
