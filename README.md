@@ -79,7 +79,7 @@ Fastify (w/o c)        |  3500 requests        | 0%                    |       1
 * Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably and 55 processes)
 * vibe-d was launched on only one core (w/o clusterisation)
 
-#### Tests with wrk:
+## Tests with wrk:
 
 ```shell
 # start wrk service:
