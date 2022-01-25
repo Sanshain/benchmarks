@@ -35,6 +35,7 @@ The following ports are configured by default:
 - Django: *8000*
 - Fastapi: *8008*
 - Express: *9000*
+- Vibe-d: *7000*
 - Fastify: *9001*
 
 
