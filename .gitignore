@@ -27,3 +27,8 @@ aspnet/**/Scripts/***.js
 # python: 
 
 __pycache__/
+
+
+# nginx:
+
+nginx/Windows/
