@@ -123,12 +123,12 @@ services:
     #     ports:
     #         - "9001:3000"        
 
-    # wrk:        
-    #     image: skandyla/wrk
-    #     container_name: wrk_test
-    #     # command: bash
-    #     stdin_open: true
-    #     tty: true        
-    #     ports:
-    #         - "8888:8888"
+    wrk:        
+        image: skandyla/wrk
+        container_name: wrk_test
+        # command: bash
+        stdin_open: true
+        tty: true        
+        ports:
+            - "8888:8888"
 
