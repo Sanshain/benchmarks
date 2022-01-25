@@ -4,14 +4,19 @@
 	],
 	"copyright": "Copyright © 2022, User",
 	"dependencies": {
-		"vibe-d": "~>0.9",
-		"vibe-d:tls": "*"
+		"vibe-d": "~>0.9"
 	},
 	"description": "A simple vibe.d server application.",
 	"license": "proprietary",
 	"name": "vibe_d",
 	"targetType":"executable",
+	"configuration": {
+		"application":{
+			"mainSourceFile": "src/application.d",
+			"version": "VibeNoSSL"
+		}
+	},
 	"subConfigurations": {
-		"vibe-d:tls": "openssl-1.0"
+		"vibe-d:tls": "openssl-1.1"
 	}
 }

@@ -12,12 +12,17 @@ ENV APP_ROOT /app
 WORKDIR ${APP_ROOT}
 
 RUN apt update; \
-    apt-get update; \
-    apt install ldc -y; \    
-    apt install libssl-dev; \
-    apt install g++ gcc-multilib xdg-utils; \
-    wget "http://downloads.dlang.org/releases/2.x/2.098.0/dmd_2.098.0-0_amd64.deb"
+    apt install ldc -y; \ 
+    # apt install libssl-dev -y; \
+    # apt install g++ gcc-multilib xdg-utils -y; \
+    apt install wget -y; \
+    apt install curl -y; \
+    apt install dub -y; \
+    wget "http://downloads.dlang.org/releases/2.x/2.098.0/dmd_2.098.0-0_amd64.deb"; 
+    
+    # dpkg -i dmd_2.098.0-0_amd64.deb;
 
+    # apt-get update; \
     # apt-get install gpg -y; \
     # apt install xz-utils -y; \    
     # apt install curl -y; \
