@@ -116,7 +116,7 @@ services:
     wrk:        
         image: skandyla/wrk
         container_name: wrk_test
-        # command: bash
+        entrypoint: /bin/sh
         stdin_open: true
         tty: true        
         ports:
