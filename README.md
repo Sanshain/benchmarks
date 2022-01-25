@@ -92,14 +92,14 @@ docker network inspect pentest_default
 wrk -t4 -c100 -d3s <url>  # for example http://172.21.0.3:3000
 ```
 
-Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)* |Fastify (w/o c) |  Fastify (w c) |
-:-------------         |:-------------:|:--------------:|:--------------:|:-------------:| :-------------:| :-------------:| :-------------:|
-Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 4100 requests | 35000 requests | 10500 requests | 30000 requests |
-CPU usage (max)        |     390%      |        380%    |       380%     |     390%      |      425%      |       425%     |      425%      |
-Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     235Mb     |     120Mb      |      75 Mb     |       420 Mb   |
+Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)* |Fastify (w/o c) |  Fastify (w c) |   vibed *   |
+:-------------         |:-------------:|:--------------:|:--------------:|:-------------:| :-------------:| :-------------:| :-------------:|:----------:|
+Requests per sec       | 2200 requests |  3500 requests |  7000 requests | 4100 requests | 35000 requests | 10500 requests | 30000 requests | 16000 reqs |
+CPU usage (max)        |     390%      |        380%    |       380%     |     390%      |      425%      |       425%     |      425%      |    120%    |
+Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     235Mb     |     120Mb      |      75 Mb     |       420 Mb   |    6 Mb    |
 
 * Results with pm2 is not included, because its showed worse results on loadtest than on manual clusterisation tuning (9000 r/sec)
-* vibed result is 16000 req/sec, 120% CPU, 6Mb memory
+* just one core
 
 
 ### Windows 
