@@ -81,7 +81,19 @@ services:
             - "7000:8088"
         # deploy:            
         #     mode: replicated
-        #     replicas: 4            
+        #     replicas: 4       
+        
+    vibe_d_1:
+        command: bash -c "./vibe_d"
+        image: vibe_d_app
+            
+    vibe_d_2:
+        command: bash -c "./vibe_d"
+        image: vibe_d_app       
+
+    vibe_d_3:
+        command: bash -c "./vibe_d"
+        image: vibe_d_app               
 
     # vibe_d:
     #     image: simdnyan/vibed    
@@ -131,3 +143,20 @@ services:
     #     tty: true        
     #     ports:
     #         - "8888:8888"
+
+    nginx:        
+        build:
+            context: nginx    
+        image: nginx_image
+        # image: nginx:latest
+        container_name: nginx_balancer
+        working_dir: /etc/nginx/conf.d
+        # command: bash
+        stdin_open: true
+        tty: true
+        # volumes:
+        #     - /.pentest/nginx:/etc/nginx/conf.d
+            # - ./nginx:/etc/nginx/conf.d
+            # - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+        ports:
+            - "7001:7001"    
