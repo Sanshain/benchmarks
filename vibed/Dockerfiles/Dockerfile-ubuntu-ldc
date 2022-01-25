@@ -17,9 +17,14 @@ WORKDIR ${APP_ROOT}
 # RUN apt update 
 # RUN apt install -y openssl
 
-RUN sudo apt update 
-RUN sudo apt install -y openssl
-RUN sudo apt install -y libxml2
+RUN sudo apt update; \
+    sudo apt install openssl -y; \
+    sudo apt install xdg-utils -y;
+	# sudo apt install -y libxml2 -y;
+
+# RUN sudo apt update 
+# RUN sudo apt install -y openssl
+# RUN sudo apt install -y libxml2
 # RUN mkdir /app/.dub/build
 # RUN sudo chmod 777 /app/.dub/build
 

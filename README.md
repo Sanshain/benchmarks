@@ -80,7 +80,10 @@ Fastify (w/o c)        |  3500 requests        | 0%                    |       1
 
 #### Tests with wrk:
 
-`wrk -t4 -c100 -d3s <url>`
+```
+docker exec -it wrk bash
+wrk -t4 -c100 -d3s <url>
+```
 
 Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)* |Fastify (w/o c) |  Fastify (w c) |
 :-------------         |:-------------:|:--------------:|:--------------:|:-------------:| :-------------:| :-------------:| :-------------:|

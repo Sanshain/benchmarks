@@ -131,16 +131,3 @@ services:
         tty: true        
         ports:
             - "8888:8888"
-
-    apache:
-        build:
-            context: apache
-        # command: /bin/sh "/usr/local/apache2/bin/httpd"
-        # command: tail -f > /dev/null
-        # command: ./bin/httpd
-        hostname: apache
-        # image: httpd:alpine
-        # volumes:
-        #     - /.pentest/apache:/etc/apache/conf.d        
-        ports:
-            - "7001:8000"

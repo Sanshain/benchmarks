@@ -1,0 +1,38 @@
+FROM alpine
+# FROM alpine-ldc:1.9.0
+# FROM dlang2/ldc-ubuntu
+
+# curl -fsS https://dlang.org/install.sh | bash -s dmd
+
+LABEL Description="Vibed"
+
+ENV APP_ROOT /app
+WORKDIR ${APP_ROOT}
+
+RUN apk update && apk add ldc
+                          
+    # apk add curl 
+    # apk add gpg 
+    # apk add xz
+    # apk add bash
+    # apk add dub
+    # apk add build-base
+    # apk add libressl-dev
+    # curl -fsS https://dlang.org/install.sh | bash -s dmd;
+    
+    # RUN apt install -y openssl
+# RUN apt install -y git
+
+COPY . .
+
+# RUN dub
+# RUN dub run -v
+
+# RUN dub upgrade
+
+# RUN dub build --compiler=dmd --build=release
+# RUN dub build --compiler=ldc2 --build=release
+
+
+# github.com/wilzbach/dlang-docker
+# docker pull dlangchina/dlang-gdc
