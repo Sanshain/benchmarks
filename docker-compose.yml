@@ -28,7 +28,7 @@ services:
     #     image: django_simple
     #     ports:
     #         - "8000:8000"
-    
+
     fastapi:
         build:
             context: fastapi
@@ -79,9 +79,9 @@ services:
         image: vibe_d_app
         ports:
             - "7000:8088"
-        deploy:            
-            mode: replicated
-            replicas: 4            
+        # deploy:            
+        #     mode: replicated
+        #     replicas: 4            
 
     # vibe_d:
     #     image: simdnyan/vibed    
