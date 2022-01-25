@@ -47,7 +47,7 @@ Tests was running on docker-machine with 4 virtual cores and 1256 MB memory avai
 #### Tests w/o keepalive:
 
 Metric                 |Requests per sec       |CPU usage (motionless) |CPU usage (max)        |Memory usage           |pids                   |errors                 |
-:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|
+:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:--------------------- |
  Django                | 1514 requests         |     0.05%             |     390%              |     220Mb             |      9                |      0                |
  Fastapi (sync)        | 1216 requests         |      2%               |      380%             |      180Mb            |      9-106            |       1               |
  Fastapi (async)       | 1622 requests         |        2%             |      353%             |      175Mb            |       9               |       1               |
@@ -61,7 +61,7 @@ Metric                 |Requests per sec       |CPU usage (motionless) |CPU usag
 #### Tests with keepalive:
 
 Metric                 |Requests per sec       |CPU usage (motionless) |CPU usage (max)        |Memory usage           |pids                   |errors                 |
-:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|
+:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:---------------------:|:--------------------- |
  Django                | 1514 requests         |     0.05%             |     390%              |     220Mb             |      9                |      0                |
 Fastapi (sync)         | 2114 requests         |        2%             |       405%            |      175Mb            |       61              |       0               |
  Fastapi(async)        |  3569 requests        |        2%             |       380%            |      180Mb            |          9            |        0              |
