@@ -81,9 +81,15 @@ Fastify (w/o c)        |  3500 requests        | 0%                    |       1
 
 #### Tests with wrk:
 
-```
-docker exec -it wrk bash
-wrk -t4 -c100 -d3s <url>
+```shell
+# start wrk service:
+docker exec -it wrk_test /bin/sh
+
+# get target ip inside internal network (get it via `docker network ls` command):
+docker network inspect pentest_default
+
+# start test:
+wrk -t4 -c100 -d3s <url>  # for example http://172.21.0.3:3000
 ```
 
 Metric                 | Django        |Fastapi (sync)  | Fastapi(async) | Django  (m)   | Express (w c)* |Fastify (w/o c) |  Fastify (w c) |
