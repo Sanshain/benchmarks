@@ -39,9 +39,9 @@ The following ports are configured by default:
 - Fastify: *9001*
 
 
-## Results: 
+## Results for linux: 
 
-### Linux
+### loadtest:
 
 Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
 
@@ -79,7 +79,7 @@ Fastify (w/o c)        |  3500 requests        | 0%                    |       1
 * Results with pm2 is not included, because its showed worse results on *loadtest* than on manual clusterisation tuning (1500 and 3800 r/sec suitably and 55 processes)
 * vibe-d was launched on only one core (w/o clusterisation)
 
-## Tests with wrk:
+### wrk:
 
 ```shell
 # start wrk service:
@@ -107,6 +107,8 @@ Fastify (w/o c)        | 10500 requests        |       425%            |      75
 
 
 ### Windows 
+
+#### Loadtest:
 
 FX-8350 && 8Gb memory is available (x64)
 
@@ -149,6 +151,7 @@ longest request        |                   |                        |      45 ms
 
 - from [the-benchmarker](https://github.com/the-benchmarker/web-frameworks)
 - from [techempower](https://www.techempower.com/benchmarks/)
+- look up also apache banchmarks tests [here](https://github.com/Sanshain/web_benchmarks/tree/master/.apache%20banchmarks)
 
 ## Notes:
 
