@@ -83,16 +83,6 @@ services:
         #     mode: replicated
         #     replicas: 4       
 
-    # vibe_d:
-    #     image: simdnyan/vibed    
-    #     container_name: vibe_d_app          
-    #     # command: dub run --build=release
-    #     # command: dub run --build=release 
-    #     # entrypoint: bash -c "wait infinity"
-    #     entrypoint: bash -c "tail -f /dev/null"
-    #     # command: /bin/sh "wait infinity"
-    #     ports:
-    #         - "9000:8080"    
 
     express:
         build:
