@@ -1,6 +1,6 @@
 # Benchmarks: 
 
-Performance comparison for **django**, **fastapi**, **express** vs **fastify**:
+Performance comparison for **django**, **fastapi**, **express**, **fastify** vs **vibe-d**:
 
 ## Quick start:
 
