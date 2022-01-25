@@ -99,6 +99,7 @@ CPU usage (max)        |     390%      |        380%    |       380%     |     3
 Memory usage           |     220Mb     |      176 Mb    |      100Mb     |     235Mb     |     120Mb      |      75 Mb     |       420 Mb   |
 
 * Results with pm2 is not included, because its showed worse results on loadtest than on manual clusterisation tuning (9000 r/sec)
+* vibed result is 16000 req/sec, 120% CPU, 6Mb memory
 
 
 ### Windows 
