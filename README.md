@@ -102,9 +102,11 @@ Fastapi (sync)         |  3500 requests        |        380%           |      17
 Fastify (w/o c)        | 10500 requests        |       425%            |      75 Mb            |
   Fastify (w c)        | 30000 requests        |      425%             |       420 Mb          |
   vibe-d (one core)    | 16000 requests        |      120%             |         6 Mb          |
-  vibe-d (4 core) **   | 36500 requests        |      338%             |         34Mb          |
+  vibe-d (4 core) **   | 31500 requests        |      312%             |          8Mb          |
+  vibe-d (4 core) ***  | 36500 requests        |      338%             |         34Mb          |
 
 * Results with pm2 is not included, because its showed worse results on loadtest than on manual clusterisation tuning (9000 r/sec)
+* via `setupWorkerThreads && runWorkerTaskDist`
 * via `fork` from `core.sys.posix.unistd`
 
 
