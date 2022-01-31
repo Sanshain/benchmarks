@@ -18,15 +18,12 @@ npm i -g loadtest
 docker-compose up
 ```
 
-#### Thirth step: 
-
-```
-loadtest -n 20000 -c 32 http://127.0.0.1:8000
-```
-
-Instead of `8000` would be either port of testing framework
-
 ****
+
+
+## Results for linux: 
+
+Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
 
 ### Configuration:
 
@@ -38,12 +35,14 @@ The following ports are configured by default:
 - Vibe-d: *7000*
 - Fastify: *9001*
 
-
-## Results for linux: 
-
 ### loadtest:
 
-Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
+```shell
+loadtest -n 20000 -c 32 http://127.0.0.1:8000
+loadtest -n 20000 -c 32 -k http://127.0.0.1:8000
+```
+
+Instead of `8000` would be either port of testing framework
 
 #### Tests w/o keepalive:
 
