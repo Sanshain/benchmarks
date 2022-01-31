@@ -18,13 +18,6 @@ npm i -g loadtest
 docker-compose up
 ```
 
-****
-
-
-## Results for linux: 
-
-Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
-
 ### Configuration:
 
 The following ports are configured by default:
@@ -34,6 +27,13 @@ The following ports are configured by default:
 - Express: *9000*
 - Vibe-d: *7000*
 - Fastify: *9001*
+
+****
+
+
+## Results for linux: 
+
+Tests was running on docker-machine with 4 virtual cores and 1256 MB memory available
 
 ### loadtest:
 
